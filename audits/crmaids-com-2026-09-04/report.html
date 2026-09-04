@@ -1,0 +1,690 @@
+<title>CR Maids SEO Audit</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --bg: #F4F7FB;
+    --surface: #FFFFFF;
+    --surface-2: #EAF0F7;
+    --border: #D6DFEA;
+    --ink: #102A43;
+    --ink-muted: #4F6478;
+    --ink-faint: #7F92A6;
+    --accent: #0B6FD0;
+    --accent-ink: #FFFFFF;
+    --accent-soft: #E3EFFC;
+    --critical: #B23A2C;
+    --critical-soft: #FBEAE6;
+    --high: #B4711A;
+    --high-soft: #FAEEDB;
+    --medium: #9C7C16;
+    --medium-soft: #F8F0D6;
+    --good: #2E7D4F;
+    --good-soft: #E5F2E9;
+    --suggestion: #4C57A8;
+    --suggestion-soft: #EAECF8;
+    --shadow: 0 1px 2px rgba(16, 42, 67, 0.04), 0 8px 24px -12px rgba(16, 42, 67, 0.14);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0B141E;
+      --surface: #121E2B;
+      --surface-2: #182634;
+      --border: #27384A;
+      --ink: #E6EEF6;
+      --ink-muted: #9DB0C4;
+      --ink-faint: #6B8097;
+      --accent: #5CB4FF;
+      --accent-ink: #061524;
+      --accent-soft: rgba(92, 180, 255, 0.14);
+      --critical: #E8776A;
+      --critical-soft: rgba(232, 119, 106, 0.14);
+      --high: #E5A75C;
+      --high-soft: rgba(229, 167, 92, 0.14);
+      --medium: #D9C066;
+      --medium-soft: rgba(217, 192, 102, 0.14);
+      --good: #63C186;
+      --good-soft: rgba(99, 193, 134, 0.13);
+      --suggestion: #9BA8EE;
+      --suggestion-soft: rgba(155, 168, 238, 0.14);
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 8px 24px -12px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0B141E; --surface: #121E2B; --surface-2: #182634; --border: #27384A;
+    --ink: #E6EEF6; --ink-muted: #9DB0C4; --ink-faint: #6B8097;
+    --accent: #5CB4FF; --accent-ink: #061524; --accent-soft: rgba(92, 180, 255, 0.14);
+    --critical: #E8776A; --critical-soft: rgba(232, 119, 106, 0.14);
+    --high: #E5A75C; --high-soft: rgba(229, 167, 92, 0.14);
+    --medium: #D9C066; --medium-soft: rgba(217, 192, 102, 0.14);
+    --good: #63C186; --good-soft: rgba(99, 193, 134, 0.13);
+    --suggestion: #9BA8EE; --suggestion-soft: rgba(155, 168, 238, 0.14);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 8px 24px -12px rgba(0, 0, 0, 0.5);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page { max-width: 860px; margin: 0 auto; padding: 0 24px 96px; }
+
+  code, .mono { font-family: 'IBM Plex Mono', 'SF Mono', Consolas, monospace; }
+  h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; text-wrap: balance; margin: 0; }
+  a { color: var(--accent); }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- Header ---------- */
+
+  .report-header {
+    position: relative;
+    margin: 0 -24px;
+    padding: 56px 24px 44px;
+    overflow: hidden;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bubble-motif { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .header-inner { position: relative; max-width: 812px; margin: 0 auto; }
+  .brand-row { display: flex; align-items: center; gap: 14px; margin-bottom: 34px; }
+
+  .logo-mark {
+    width: 40px; height: 42px; flex: none; border-radius: 6px;
+    background: #FFFFFF; padding: 3px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+  .brand-row .name { font-weight: 600; font-size: 14px; }
+  .brand-row .divider { width: 1px; height: 18px; background: var(--border); }
+  .brand-row .domain { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink-muted); }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 14px;
+  }
+  .eyebrow::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+
+  .report-header h1 { font-size: 40px; font-weight: 600; letter-spacing: -0.01em; max-width: 20ch; }
+  .report-header .dek { margin-top: 14px; font-size: 17px; color: var(--ink-muted); max-width: 56ch; }
+
+  .meta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+  .meta-chip {
+    display: flex; align-items: baseline; gap: 6px; padding: 7px 12px;
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px; font-size: 12.5px;
+  }
+  .meta-chip .label { color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.06em; font-size: 10.5px; font-weight: 600; }
+  .meta-chip .value { color: var(--ink); font-weight: 500; }
+
+  /* ---------- Sections ---------- */
+
+  section { padding-top: 56px; }
+  .section-head { margin-bottom: 24px; }
+  .section-head h2 { font-size: 26px; font-weight: 600; }
+  .section-head .sub { color: var(--ink-muted); font-size: 15px; margin-top: 6px; max-width: 62ch; }
+  .verdict { font-size: 17px; line-height: 1.65; max-width: 68ch; color: var(--ink); }
+  .verdict strong { font-weight: 600; }
+
+  /* ---------- Stat tiles ---------- */
+
+  .stat-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+  .stat-group { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .stat-group h3 {
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin-bottom: 16px;
+  }
+  .stat-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 10px; }
+  .stat-tile .num {
+    font-family: 'Fraunces', serif; font-size: 30px; font-weight: 600;
+    font-variant-numeric: tabular-nums; line-height: 1;
+  }
+  .stat-tile .num small { font-size: 15px; font-weight: 500; color: var(--ink-faint); }
+  .stat-tile .name { font-size: 12.5px; color: var(--ink-muted); margin-top: 5px; }
+  .stat-tile .name em { font-style: normal; color: var(--ink-faint); }
+  .stat-tile.good .num { color: var(--good); }
+  .stat-tile.warn .num { color: var(--high); }
+  .stat-tile.bad .num { color: var(--critical); }
+
+  /* ---------- Sitemap health table ---------- */
+
+  .table-wrap { overflow-x: auto; margin-top: 14px; }
+  .sitemap-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .sitemap-table th { text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-faint); font-weight: 600; padding: 0 10px 8px 0; border-bottom: 1px solid var(--border); }
+  .sitemap-table td { padding: 8px 10px 8px 0; border-bottom: 1px solid var(--border); vertical-align: top; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .sitemap-table tr:last-child td { border-bottom: none; }
+  .pill { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; }
+  .pill.ok { background: var(--good-soft); color: var(--good); }
+  .pill.fail { background: var(--critical-soft); color: var(--critical); }
+
+  /* ---------- Severity summary strip ---------- */
+
+  .severity-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 32px; }
+  .sev-tile { border-radius: 10px; padding: 16px 14px; border: 1px solid var(--border); }
+  .sev-tile .count { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .sev-tile .lbl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+  .sev-tile.critical { background: var(--critical-soft); }
+  .sev-tile.critical .count, .sev-tile.critical .lbl { color: var(--critical); }
+  .sev-tile.high { background: var(--high-soft); }
+  .sev-tile.high .count, .sev-tile.high .lbl { color: var(--high); }
+  .sev-tile.medium { background: var(--medium-soft); }
+  .sev-tile.medium .count, .sev-tile.medium .lbl { color: var(--medium); }
+  .sev-tile.low { background: var(--good-soft); }
+  .sev-tile.low .count, .sev-tile.low .lbl { color: var(--good); }
+  .sev-tile.suggestion { background: var(--suggestion-soft); }
+  .sev-tile.suggestion .count, .sev-tile.suggestion .lbl { color: var(--suggestion); }
+
+  /* ---------- Finding cards ---------- */
+
+  .findings-list { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+  .finding {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 4px solid var(--sev-color, var(--border)); border-radius: 10px;
+    padding: 22px 24px; box-shadow: var(--shadow);
+  }
+  .finding.critical { --sev-color: var(--critical); }
+  .finding.high { --sev-color: var(--high); }
+  .finding.medium { --sev-color: var(--medium); }
+  .finding.low { --sev-color: var(--good); }
+  .finding.suggestion { --sev-color: var(--suggestion); }
+
+  .finding-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .tag { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 9px; border-radius: 4px; }
+  .tag.sev { background: var(--sev-color, var(--border)); color: var(--surface); }
+  .tag.cat { background: var(--surface-2); color: var(--ink-muted); border: 1px solid var(--border); font-weight: 600; }
+  .tag.effort { background: transparent; color: var(--ink-faint); border: 1px dashed var(--border); font-weight: 600; }
+
+  .finding h3 { font-size: 19px; font-weight: 600; margin-bottom: 8px; }
+  .finding p { margin: 0 0 10px; color: var(--ink); font-size: 15px; }
+  .finding p:last-of-type { margin-bottom: 0; }
+  .finding p.muted { color: var(--ink-muted); font-size: 14px; }
+  .finding p code, .finding h3 code, .sitemap-table code { font-size: 0.92em; background: var(--surface-2); padding: 1px 5px; border-radius: 3px; }
+
+  .evidence {
+    margin-top: 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.7;
+    overflow-x: auto; color: var(--ink); white-space: pre;
+  }
+  .evidence .cmd::before { content: '$ '; color: var(--ink-faint); }
+  .evidence .status-ok { color: var(--good); font-weight: 600; }
+  .evidence .status-bad { color: var(--critical); font-weight: 600; }
+  .evidence .dim { color: var(--ink-faint); }
+
+  /* ---------- Step-by-step fix block ---------- */
+
+  .howto { margin-top: 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+  .howto summary {
+    cursor: pointer; padding: 11px 14px; font-size: 13px; font-weight: 600; color: var(--accent);
+    list-style: none; display: flex; align-items: center; gap: 10px; user-select: none;
+  }
+  .howto summary::-webkit-details-marker { display: none; }
+  .howto summary::before {
+    content: ''; width: 6px; height: 6px; flex: none; margin-left: 2px;
+    border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+    transform: rotate(-45deg); transition: transform 0.15s ease;
+  }
+  .howto[open] summary::before { transform: rotate(45deg); }
+  .howto summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 8px; }
+  .howto summary .where { font-weight: 500; color: var(--ink-faint); margin-left: auto; font-size: 12px; }
+  .howto ol { margin: 0; padding: 2px 16px 14px 36px; font-size: 14px; color: var(--ink); }
+  .howto li { margin-bottom: 9px; padding-left: 2px; }
+  .howto li:last-child { margin-bottom: 0; }
+  .howto li strong { font-weight: 600; }
+  .howto pre {
+    margin: 8px 0 0; padding: 10px 12px; background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.6; overflow-x: auto;
+  }
+  .howto .verify { margin: 0 16px 14px; padding: 10px 12px; background: var(--good-soft); border-radius: 6px; font-size: 13px; color: var(--ink); }
+  .howto .verify strong { color: var(--good); }
+  .howto li code, .howto .verify code { font-size: 0.92em; background: var(--surface-2); padding: 1px 5px; border-radius: 3px; }
+  @media (prefers-reduced-motion: reduce) { .howto summary::before { transition: none; } }
+
+  .fix-ref { margin-top: 14px; display: flex; align-items: baseline; gap: 8px; font-size: 12.5px; flex-wrap: wrap; }
+  .fix-ref .label { color: var(--ink-faint); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 10.5px; }
+  .fix-ref code { color: var(--accent); background: var(--accent-soft); padding: 3px 8px; border-radius: 4px; }
+
+  .verify-note {
+    margin-top: 14px; border: 1px dashed var(--border); border-radius: 8px;
+    padding: 12px 14px; font-size: 13px; color: var(--ink-muted);
+  }
+  .verify-note .label { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Working well ---------- */
+
+  .pass-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
+  .pass-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; padding: 12px 14px; background: var(--good-soft); border-radius: 8px; }
+  .pass-list .mark {
+    flex: none; width: 18px; height: 18px; border-radius: 50%; background: var(--good); color: var(--surface);
+    display: flex; align-items: center; justify-content: center; font-size: 11px; margin-top: 1px;
+  }
+  .pass-list strong { color: var(--good); }
+
+  /* ---------- Next steps ---------- */
+
+  .steps { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+  .steps li {
+    counter-increment: step; display: grid; grid-template-columns: 32px 1fr; gap: 14px;
+    padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 14.5px;
+  }
+  .steps li:last-child { border-bottom: none; }
+  .steps li::before {
+    content: counter(step); font-family: 'Fraunces', serif; font-weight: 600; font-size: 15px;
+    color: var(--accent); background: var(--accent-soft); width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .steps li strong { display: block; margin-bottom: 2px; }
+  .steps li span.note { color: var(--ink-muted); }
+
+  footer {
+    margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--ink-faint); line-height: 1.7;
+  }
+  footer strong { color: var(--ink-muted); }
+
+  @media (max-width: 620px) {
+    .stat-groups { grid-template-columns: 1fr; }
+    .severity-strip { grid-template-columns: repeat(2, 1fr); }
+    .pass-list { grid-template-columns: 1fr; }
+    .report-header h1 { font-size: 30px; }
+    .stat-tiles { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .bubble-motif circle { animation: drift 14s ease-in-out infinite alternate; }
+    .bubble-motif circle:nth-child(2n) { animation-duration: 18s; }
+    @keyframes drift { from { transform: translateY(0); } to { transform: translateY(-6px); } }
+  }
+</style>
+
+<div class="page">
+
+  <header class="report-header">
+    <svg class="bubble-motif" viewBox="0 0 812 260" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
+      <circle cx="640" cy="190" r="46" fill="none" stroke="var(--accent)" stroke-width="1.2" opacity="0.22"/>
+      <circle cx="712" cy="118" r="28" fill="none" stroke="var(--accent)" stroke-width="1.2" opacity="0.3"/>
+      <circle cx="770" cy="200" r="18" fill="none" stroke="var(--accent)" stroke-width="1.2" opacity="0.3"/>
+      <circle cx="758" cy="52" r="9" fill="none" stroke="var(--accent)" stroke-width="1.2" opacity="0.4"/>
+      <circle cx="690" cy="242" r="6" fill="var(--accent)" opacity="0.18"/>
+      <circle cx="600" cy="90" r="4" fill="var(--accent)" opacity="0.25"/>
+    </svg>
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="logo-mark"><img src="data:image/webp;base64,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" alt="CR Maids logo"></div>
+        <span class="name">CR Maids</span>
+        <div class="divider"></div>
+        <span class="domain">crmaids.com</span>
+      </div>
+      <div class="eyebrow">Technical SEO Audit</div>
+      <h1>Two of seven sitemaps never load, and the homepage weighs 8 MB</h1>
+      <p class="dek">Full-site technical audit: robots.txt, the sitemap index and all seven sub-sitemaps, a homepage deep-dive with Lighthouse and Core Web Vitals, plus spot-checks of internal links and a sample blog URL.</p>
+      <div class="meta-row">
+        <div class="meta-chip"><span class="label">Date</span><span class="value">4 Sep 2026</span></div>
+        <div class="meta-chip"><span class="label">Method</span><span class="value">Automated, two passes</span></div>
+        <div class="meta-chip"><span class="label">Scope</span><span class="value">Full site</span></div>
+        <div class="meta-chip"><span class="label">Audited by</span><span class="value">Claude</span></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="summary">
+    <div class="section-head"><h2>At a glance</h2></div>
+    <p class="verdict">
+      The site is in <strong>good shape on security, HTTPS, indexability basics, and structured data</strong>, and its Lighthouse SEO score is a perfect 100.
+      The one thing to fix first is a <strong>confirmed server bug: the two sitemap files listing the site's core Pages time out with a 500 error on every request</strong>, so Google can't read the most recently updated part of the site through its sitemap.
+      Second is page weight. The homepage loads at roughly 8 MB because a batch of August photos went up as uncompressed JPEGs, which pushes Largest Contentful Paint to 5 to 6 seconds against Google's 2.5 second target.
+      Everything else is small: a viewport tag that blocks pinch-zoom, a stale robots.txt block, and a few cosmetic tags.
+    </p>
+
+    <div class="stat-groups">
+      <div class="stat-group">
+        <h3>Lighthouse (homepage, 3 runs)</h3>
+        <div class="stat-tiles">
+          <div class="stat-tile warn"><div class="num">55</div><div class="name">Performance <em>(54–56)</em></div></div>
+          <div class="stat-tile good"><div class="num">100</div><div class="name">SEO</div></div>
+          <div class="stat-tile warn"><div class="num">89</div><div class="name">Accessibility</div></div>
+          <div class="stat-tile bad"><div class="num">7.9<small>MB</small></div><div class="name">Total page weight <em>(7.8–8.0)</em></div></div>
+        </div>
+      </div>
+      <div class="stat-group">
+        <h3>Core Web Vitals vs. Google's "good" line</h3>
+        <div class="stat-tiles">
+          <div class="stat-tile bad"><div class="num">5.1<small>–6.0s</small></div><div class="name">LCP <em>(good ≤ 2.5s)</em></div></div>
+          <div class="stat-tile warn"><div class="num">0.178</div><div class="name">CLS <em>(good ≤ 0.1)</em></div></div>
+          <div class="stat-tile warn"><div class="num">8</div><div class="name">Render-blocking resources</div></div>
+          <div class="stat-tile bad"><div class="num">5<small>/7</small></div><div class="name">Sitemaps that load</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="severity-strip">
+      <div class="sev-tile critical"><div class="count">1</div><div class="lbl">Critical</div></div>
+      <div class="sev-tile high"><div class="count">2</div><div class="lbl">High</div></div>
+      <div class="sev-tile medium"><div class="count">2</div><div class="lbl">Medium</div></div>
+      <div class="sev-tile low"><div class="count">3</div><div class="lbl">Low</div></div>
+      <div class="sev-tile suggestion"><div class="count">2</div><div class="lbl">Suggestion</div></div>
+    </div>
+  </section>
+
+  <section class="findings">
+    <div class="section-head">
+      <h2>Findings</h2>
+      <p class="sub">Ordered by severity, meaning how much each issue could be costing in search visibility. Numbers match the issue tracker.</p>
+    </div>
+
+    <div class="findings-list">
+
+      <article class="finding critical">
+        <div class="finding-tags">
+          <span class="tag sev">Critical</span>
+          <span class="tag cat">Crawlability</span>
+          <span class="tag effort">Moderate · hosting / plugin config</span>
+        </div>
+        <h3>1. The two "Pages" sitemaps return a 500 timeout instead of XML</h3>
+        <p>The sitemap index lists seven sub-sitemaps. Five load in about a second. The two that don't, <code>page-sitemap1.xml</code> and <code>page-sitemap2.xml</code>, are the WordPress <em>Pages</em> sitemaps, which normally carry the core service and location pages rather than blog posts. They are also the most recently updated entries in the index (3 Sep 2026, the day before this audit).</p>
+        <p>Tested six times across two audit passes and a re-check while preparing this report, with curl (default and Googlebot user-agents) and a real browser. Every attempt hung until the server gave up. In the browser, the page rendered LiteSpeed's own error: "500 Internal Server Error, Request Timeout."</p>
+        <div class="table-wrap">
+        <table class="sitemap-table">
+          <thead><tr><th>Sitemap file</th><th>Last modified</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td><code>post-sitemap1.xml</code></td><td>2026-08-11</td><td><span class="pill ok">200 · 1.4s</span></td></tr>
+            <tr><td><code>post-sitemap2.xml</code></td><td>2026-08-11</td><td><span class="pill ok">200</span></td></tr>
+            <tr><td><code>post-sitemap3.xml</code></td><td>2026-08-11</td><td><span class="pill ok">200</span></td></tr>
+            <tr><td><code>post-sitemap4.xml</code></td><td>2026-08-11</td><td><span class="pill ok">200</span></td></tr>
+            <tr><td><code>page-sitemap1.xml</code></td><td>2026-09-03</td><td><span class="pill fail">Timeout · 0 bytes</span></td></tr>
+            <tr><td><code>page-sitemap2.xml</code></td><td>2026-09-03</td><td><span class="pill fail">Timeout · 0 bytes</span></td></tr>
+            <tr><td><code>local-sitemap.xml</code></td><td>2026-08-12</td><td><span class="pill ok">200</span></td></tr>
+          </tbody>
+        </table>
+        </div>
+        <div class="evidence"><div class="cmd">curl -s -o /dev/null --max-time 25 -w "HTTP %{http_code} | bytes %{size_download} | %{time_total}s" https://crmaids.com/page-sitemap1.xml</div><div><span class="status-bad">HTTP 000 | bytes 0 | 25.004s</span>  <span class="dim">(connection dropped, nothing returned)</span></div><div class="cmd">curl -s -o /dev/null --max-time 25 -w "HTTP %{http_code} | bytes %{size_download} | %{time_total}s" https://crmaids.com/post-sitemap1.xml</div><div><span class="status-ok">HTTP 200 | bytes 29538 | 1.371s</span></div></div>
+        <p class="muted">Why it matters: Google reads sitemaps to discover new and changed URLs quickly. With these two files unreadable, new or edited service pages rely on being found through internal links alone, and Search Console will report the sitemap as failing. This is a server-side bug, most likely the sitemap generator timing out while building these entries or a caching plugin interfering with the dynamic XML endpoint. Editing the sitemap itself won't fix it.</p>
+        <div class="verify-note"><span class="label">Before changing anything:</span> ask your host to pull the server error log for a request to <code>page-sitemap1.xml</code>. The log entry will show exactly what timed out. Then confirm in Google Search Console under Sitemaps that the index currently shows an error for these two files.</div>
+        <details class="howto" open>
+          <summary>How to fix it, step by step <span class="where">WordPress admin + hosting panel</span></summary>
+          <ol>
+            <li><strong>See what those two sitemaps are trying to list.</strong> In WordPress go to <strong>Pages → All Pages</strong> and sort by date. An unusually large number of pages, or a few very heavy Divi layouts, can make the generator time out while building their entries.</li>
+            <li><strong>Exclude sitemap URLs from WP Rocket.</strong> The site runs WP Rocket 3.21.3. Go to <strong>WP Rocket → Advanced Rules → Never Cache URLs</strong> and add <code>/(.*)sitemap(.*).xml</code>. Also make sure sitemaps are not covered by <strong>Remove Unused CSS</strong> or <strong>Delay JavaScript</strong>. If LiteSpeed Cache is also installed, exclude <code>*sitemap*.xml</code> there too.</li>
+            <li><strong>Ask your host to raise the limits.</strong> Request a higher PHP <code>max_execution_time</code> and a longer LiteSpeed connection timeout for the site. On Hostinger this is under <strong>Advanced → PHP Configuration</strong>. If the generator only needs a few more seconds, this alone can fix it.</li>
+            <li><strong>Regenerate the sitemaps.</strong> Rank Math: <strong>Rank Math → Sitemap Settings</strong>, toggle sitemaps off and on. Yoast: <strong>SEO → General → Features → XML sitemaps</strong> off and on. Then clear the WP Rocket cache.</li>
+            <li><strong>Pull the server error log.</strong> In the hosting panel open <strong>Error Logs</strong>, request <code>https://crmaids.com/page-sitemap1.xml</code> in a browser, and read the newest entry. It names the plugin or query that hung.</li>
+            <li><strong>If it still hangs,</strong> ask the host whether a memory or CPU limit is being hit on that URL. Shared plans sometimes throttle long processes, which looks identical from outside.</li>
+          </ol>
+          <div class="verify"><strong>Done when:</strong> the curl command above returns <code>HTTP 200</code> in under 5 seconds with real XML, and Google Search Console → Sitemaps shows "Success" with a URL count for both files.</div>
+        </details>
+        <div class="fix-ref"><span class="label">Fix guide</span><code>fixes/crawlability/sitemap-file-timeout-error.md</code></div>
+      </article>
+
+      <article class="finding high">
+        <div class="finding-tags">
+          <span class="tag sev">High</span>
+          <span class="tag cat">Performance</span>
+          <span class="tag effort">Moderate</span>
+        </div>
+        <h3>2. Homepage weighs ~8 MB; a batch of uncompressed JPEGs drives LCP to 5–6 seconds</h3>
+        <p>Lighthouse Performance scored 54 to 56 out of 100 across three runs, with Largest Contentful Paint between 5.1 and 6.0 seconds. Google's "good" threshold is 2.5 seconds.</p>
+        <p>The cause is specific. Several photos uploaded in August 2026 (<code>IMG_5057-scaled.jpg</code>, <code>IMG_2638-scaled.jpeg</code>, <code>83ad71b4…-scaled.jpg</code>, and others from the same batch) are each around 620 to 640 KB and load as plain JPEGs, even though the rest of the site already serves WebP. Those few files alone account for roughly 1.9 MB of the page.</p>
+        <p class="muted">Why it matters: LCP is a Core Web Vitals ranking signal, and on mobile connections an 8 MB homepage is slow enough that visitors leave before the first screen finishes painting. Converting this batch to WebP and adding explicit width and height attributes fixes both this and most of the layout shift in finding 4.</p>
+        <details class="howto" open>
+          <summary>How to fix it, step by step <span class="where">Media Library</span></summary>
+          <ol>
+            <li><strong>Find the August batch.</strong> In <strong>Media → Library</strong>, filter to August 2026 and list view. Sort by file size if your media plugin allows it. The offenders are the <code>-scaled.jpg</code> and <code>-scaled.jpeg</code> files around 620 to 640 KB.</li>
+            <li><strong>Compress and convert them to WebP.</strong> For a handful of files, drop each into <a href="https://squoosh.app/">Squoosh</a>, choose WebP at quality 75 to 80, and resize to the largest width the layout actually displays. Aim for under 150 KB each. For bulk, use ShortPixel or Imagify and run a bulk optimization on the August uploads only.</li>
+            <li><strong>Replace the files in place.</strong> Use "Replace Media" (Enable Media Replace plugin) or re-upload and swap the images in the Divi modules, so existing URLs keep working.</li>
+            <li><strong>Check width and height are present.</strong> WP Rocket's "Add missing image dimensions" is already on, but these images still shift. Open the homepage source and confirm each of these <code>&lt;img&gt;</code> tags has <code>width</code> and <code>height</code>. Where missing, set them in the Divi image module.</li>
+            <li><strong>Keep the hero eager, lazy-load the rest.</strong> The first image visitors see should not be lazy-loaded. Everything below the fold should be.</li>
+            <li><strong>Clear the cache</strong> in WP Rocket and re-test.</li>
+          </ol>
+          <div class="verify"><strong>Done when:</strong> <a href="https://pagespeed.web.dev/">PageSpeed Insights</a> no longer lists "Serve images in next-gen formats" or "Efficiently encode images", LCP is under 2.5 seconds, and total page weight in the browser Network tab is under about 3 MB.</div>
+        </details>
+        <div class="fix-ref"><span class="label">Fix guide</span><code>fixes/performance/unoptimized-images.md</code></div>
+      </article>
+
+      <article class="finding high">
+        <div class="finding-tags">
+          <span class="tag sev">High</span>
+          <span class="tag cat">Performance</span>
+          <span class="tag effort">Moderate</span>
+        </div>
+        <h3>3. Eight render-blocking resources on the homepage</h3>
+        <p>Lighthouse flagged eight scripts and stylesheets that the browser must download and run before it can paint anything. WP Rocket is installed and already minifying, so the remaining blockers are likely theme and third-party scripts that are excluded from its deferral rules.</p>
+        <p class="muted">Why it matters: each blocking resource delays first paint, stacking on top of the image weight above. Deferring non-critical scripts is usually a settings change in WP Rocket rather than code work.</p>
+        <details class="howto" open>
+          <summary>How to fix it, step by step <span class="where">WP Rocket settings</span></summary>
+          <ol>
+            <li><strong>Get the list.</strong> Run the homepage through <a href="https://pagespeed.web.dev/">PageSpeed Insights</a> and open "Eliminate render-blocking resources". Note the eight files. They will be a mix of theme CSS, plugin scripts, and third-party tags.</li>
+            <li><strong>Defer JavaScript.</strong> In <strong>WP Rocket → File Optimization</strong>, turn on <strong>Load JavaScript deferred</strong> and <strong>Delay JavaScript execution</strong>. Delay holds third-party scripts until the visitor interacts, which covers most of finding 10 as well.</li>
+            <li><strong>Optimize CSS delivery.</strong> In the same screen, <strong>Remove Unused CSS</strong> is already on. Confirm it has finished processing for the homepage (it shows a status) and that <strong>Minify CSS</strong> is enabled.</li>
+            <li><strong>Add exclusions for anything that breaks.</strong> Reload the homepage and test the menu, booking form, and any sliders. If something stops working, add that script to the exclusion box under Delay JavaScript rather than turning the feature off.</li>
+            <li><strong>Move hard-coded tags into Tag Manager.</strong> Any pixel pasted directly into the theme header should be managed from Google Tag Manager instead, so it can load after first paint (see finding 10).</li>
+          </ol>
+          <div class="verify"><strong>Done when:</strong> the render-blocking warning in PageSpeed Insights is gone or down to one or two files, and the site still works end to end, including the booking form.</div>
+        </details>
+        <div class="fix-ref"><span class="label">Fix guide</span><code>fixes/performance/render-blocking-resources.md</code></div>
+      </article>
+
+      <article class="finding medium">
+        <div class="finding-tags">
+          <span class="tag sev">Medium</span>
+          <span class="tag cat">Performance</span>
+          <span class="tag effort">Moderate · follows from #2</span>
+        </div>
+        <h3>4. Cumulative Layout Shift is 0.178</h3>
+        <p>Consistent across every run. Google's "good" threshold is 0.1, so this sits in the "needs improvement" band, not yet "poor". Content jumps as the oversized images load without reserved space.</p>
+        <p class="muted">Why it matters: layout shift is the third Core Web Vital. Giving the images from finding 2 explicit dimensions typically brings this under 0.1 without separate work.</p>
+        <details class="howto" open>
+          <summary>How to fix it, step by step <span class="where">After finding 2</span></summary>
+          <ol>
+            <li><strong>Finish finding 2 first</strong> and re-run PageSpeed Insights. Most of the shift comes from images loading without reserved space.</li>
+            <li><strong>Find whatever still shifts.</strong> In Chrome DevTools open the <strong>Performance</strong> panel, record a page load, and look at the "Layout Shifts" track. It highlights the exact elements that moved. Embedded widgets (Elfsight reviews, UserWay, LeadConnector chat) are the usual remaining causes.</li>
+            <li><strong>Reserve space for embeds.</strong> Give each widget's container a fixed <code>min-height</code> in the Divi module's Advanced → Custom CSS so the page doesn't jump when it loads.</li>
+            <li><strong>Check web fonts.</strong> If text visibly reflows when fonts arrive, WP Rocket's font preloading is already on. Confirm the fonts it preloads match the ones the theme actually uses.</li>
+          </ol>
+          <div class="verify"><strong>Done when:</strong> CLS reads 0.1 or lower on three consecutive PageSpeed Insights runs.</div>
+        </details>
+        <div class="fix-ref"><span class="label">Fix guide</span><code>fixes/performance/unoptimized-images.md</code></div>
+      </article>
+
+      <article class="finding medium">
+        <div class="finding-tags">
+          <span class="tag sev">Medium</span>
+          <span class="tag cat">Mobile</span>
+          <span class="tag effort">Quick win</span>
+        </div>
+        <h3>5. The viewport tag blocks pinch-to-zoom</h3>
+        <p>The homepage viewport tag sets <code>maximum-scale=1.0</code> and <code>user-scalable=0</code>. Visitors on phones cannot zoom to read small text, which fails WCAG 1.4.4 and is one of the items holding Accessibility at 89 instead of 100.</p>
+        <div class="evidence"><div class="cmd">curl -s https://crmaids.com/ | grep -o '&lt;meta name="viewport"[^&gt;]*&gt;'</div><div>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, <span class="status-bad">maximum-scale=1.0, user-scalable=0</span>" /&gt;</div></div>
+        <p class="muted">Why it matters: Google's mobile-usability signals penalize disabled zoom, and it excludes visitors with low vision. The fix is deleting the last two values from one line.</p>
+        <details class="howto" open>
+          <summary>How to fix it, step by step <span class="where">Theme header</span></summary>
+          <ol>
+            <li><strong>Find where the tag is set.</strong> Divi normally outputs a correct viewport tag, so something overrides it. Check, in order: <strong>Divi → Theme Options → Integration</strong> (the "Add code to the head" box), the child theme's <code>header.php</code>, and any "mobile" or "accessibility" plugin settings. Search each for <code>user-scalable</code>.</li>
+            <li><strong>Replace the tag</strong> with the standard form:
+              <pre>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</pre>
+              Remove <code>maximum-scale=1.0</code> and <code>user-scalable=0</code>. Nothing else changes.</li>
+            <li><strong>Clear the WP Rocket cache</strong> so the new header is served.</li>
+          </ol>
+          <div class="verify"><strong>Done when:</strong> viewing the homepage source shows the new tag, pinch-zoom works on a phone, and the Lighthouse Accessibility audit no longer flags "user-scalable".</div>
+        </details>
+        <div class="fix-ref"><span class="label">Fix guide</span><code>fixes/mobile/missing-viewport-meta.md</code></div>
+      </article>
+
+      <article class="finding low">
+        <div class="finding-tags">
+          <span class="tag sev">Low</span>
+          <span class="tag cat">Crawlability</span>
+          <span class="tag effort">Quick win</span>
+        </div>
+        <h3>6. robots.txt carries a stale rule block from a different app</h3>
+        <p>The file has two separate <code>User-agent: *</code> groups. The first disallows paths such as <code>/admin/</code>, <code>/provider/</code>, <code>/qbconnect/</code>, <code>/live-reviews/</code>, <code>/sent_emails/</code>, and <code>/*.php</code>, which look like leftovers from a non-WordPress system. The second is a normal WordPress block with <code>Allow: /</code>. Most crawlers merge same-agent groups correctly, so nothing is actively broken today.</p>
+        <div class="evidence"><div class="cmd">curl -s https://crmaids.com/robots.txt</div><div><span class="dim">User-agent: *</span>
+Disallow: /admin/
+Disallow: /provider/
+Disallow: /qbconnect/
+Disallow: /images/
+Disallow: /*.php
+<span class="dim">… 12 more legacy rules …</span>
+
+<span class="dim">User-agent: *</span>
+<span class="status-ok">Allow: /</span>
+Disallow: /wp-admin/
+Sitemap: https://crmaids.com/sitemap_index.xml</div></div>
+        <p class="muted">Why it matters: stale rules make future edits risky, since someone could reintroduce a real block without noticing. Also confirm that <code>Disallow: /images/</code> is intentional. Actual photos are served from <code>/wp-content/uploads/</code>, so it doesn't currently affect Google Images, but it's a trap waiting to spring.</p>
+        <details class="howto" open>
+          <summary>How to fix it, step by step <span class="where">SEO plugin or site root</span></summary>
+          <ol>
+            <li><strong>Find where robots.txt lives.</strong> If a physical <code>robots.txt</code> file exists in the site root (check via the hosting file manager), edit that. Otherwise it is generated by the SEO plugin: Rank Math under <strong>General Settings → Edit robots.txt</strong>, Yoast under <strong>Tools → File editor</strong>.</li>
+            <li><strong>Merge the two blocks into one.</strong> Delete the first legacy <code>User-agent: *</code> group entirely. Keep the WordPress group. If any legacy path still exists on the server and should stay private, move that single line into the kept group.</li>
+            <li><strong>Decide on <code>/images/</code>.</strong> Photos are served from <code>/wp-content/uploads/</code>, so this rule currently does nothing. Remove it unless there is a real <code>/images/</code> folder you want hidden.</li>
+            <li><strong>Keep the Sitemap line</strong> at the bottom pointing at <code>https://crmaids.com/sitemap_index.xml</code>.</li>
+            <li><strong>Test before saving.</strong> In Google Search Console open <strong>Settings → robots.txt</strong> and confirm it parses without warnings after the change.</li>
+          </ol>
+          <div class="verify"><strong>Done when:</strong> <code>curl https://crmaids.com/robots.txt</code> shows a single <code>User-agent: *</code> group, and URL Inspection on a service page reports "Crawl allowed: Yes".</div>
+        </details>
+        <div class="fix-ref"><span class="label">Fix guide</span><code>fixes/crawlability/robots-txt-blocking-pages.md</code></div>
+      </article>
+
+      <article class="finding low">
+        <div class="finding-tags">
+          <span class="tag sev">Low</span>
+          <span class="tag cat">Site architecture</span>
+          <span class="tag effort">Quick win</span>
+        </div>
+        <h3>7. <code>/contact</code> redirects to <code>/contact/</code></h3>
+        <p>A trailing-slash normalization 301. Harmless on its own, but any internal link pointing at the no-slash version costs an extra hop for every crawl and click.</p>
+        <p class="muted">Fix: update internal links to point directly at the canonical <code>/contact/</code>. No dedicated guide needed.</p>
+        <details class="howto" open>
+          <summary>How to fix it, step by step <span class="where">Menus and content</span></summary>
+          <ol>
+            <li><strong>Check the menus first.</strong> In <strong>Appearance → Menus</strong> and the Divi global header, open the Contact item and make sure its URL ends with a slash: <code>https://crmaids.com/contact/</code>.</li>
+            <li><strong>Search the content.</strong> Install "Better Search Replace", run a dry run for <code>crmaids.com/contact"</code> (with the closing quote, so it only matches the no-slash form) and review the hits.</li>
+            <li><strong>Replace</strong> with <code>crmaids.com/contact/"</code> and clear the cache.</li>
+          </ol>
+          <div class="verify"><strong>Done when:</strong> a site crawl (Screaming Frog or similar) shows no internal links returning a 301 to <code>/contact/</code>.</div>
+        </details>
+      </article>
+
+      <article class="finding low">
+        <div class="finding-tags">
+          <span class="tag sev">Low</span>
+          <span class="tag cat">Indexability</span>
+          <span class="tag effort">Quick win</span>
+        </div>
+        <h3>8. Three duplicate generator tags and a duplicated site-data tag</h3>
+        <p>WordPress, Site Kit by Google, and WP Rocket each inject their own <code>&lt;meta name="generator"&gt;</code> tag, and <code>ti-site-data</code> appears twice. The on-page scanner flags these as duplicate meta tags.</p>
+        <div class="evidence"><div class="cmd">curl -s https://crmaids.com/ | grep -o '&lt;meta name="generator"[^&gt;]*&gt;'</div><div>&lt;meta name="generator" content="WordPress 7.0.4" /&gt;
+&lt;meta name="generator" content="Site Kit by Google 1.180.0" /&gt;
+&lt;meta name="generator" content="WP Rocket 3.21.3" … /&gt;</div></div>
+        <p class="muted">Why it matters: technically invalid HTML, but it has no ranking effect. Cosmetic cleanup only, and it also stops advertising exact plugin versions publicly.</p>
+        <details class="howto" open>
+          <summary>How to fix it, step by step <span class="where">Child theme functions.php</span></summary>
+          <ol>
+            <li><strong>Remove the WordPress tag.</strong> Add this line to the child theme's <code>functions.php</code> (or a code-snippets plugin):
+              <pre>remove_action( 'wp_head', 'wp_generator' );</pre></li>
+            <li><strong>Remove the plugin tags.</strong> Site Kit and WP Rocket each add their own. Both plugins document a filter for turning it off. Search each plugin's support docs for "meta generator" and add the one-line filter they give, or ask their support.</li>
+            <li><strong>Find the duplicated <code>ti-site-data</code> tag.</strong> It comes from a theme or plugin, most likely a reviews or testimonials widget. Deactivate plugins one at a time on a staging copy until the duplicate disappears, then report it to that plugin's author.</li>
+          </ol>
+          <div class="verify"><strong>Done when:</strong> viewing the homepage source shows at most one <code>generator</code> tag and one <code>ti-site-data</code> tag.</div>
+        </details>
+      </article>
+
+      <article class="finding suggestion">
+        <div class="finding-tags">
+          <span class="tag sev">Suggestion</span>
+          <span class="tag cat">Structured data</span>
+          <span class="tag effort">Moderate</span>
+        </div>
+        <h3>9. No LocalBusiness or Organization schema on the homepage</h3>
+        <p>The homepage already has well-formed <code>FAQPage</code>, <code>Service</code>, and <code>WebSite</code> schema with a <code>SearchAction</code>, and address and geo data nested inside. What's missing is an explicit <code>LocalBusiness</code> entity carrying the business name, address, phone, and hours as a first-class object.</p>
+        <p class="muted">Why it matters: for a local cleaning service this is the schema type Google uses for local pack and rich-result features such as business details in search. Not a defect, but the best-return addition available.</p>
+        <details class="howto" open>
+          <summary>How to fix it, step by step <span class="where">SEO plugin schema settings</span></summary>
+          <ol>
+            <li><strong>Try the plugin first.</strong> Rank Math: <strong>Titles &amp; Meta → Local SEO</strong>, set the site to represent an <strong>Organization</strong>, choose business type <strong>LocalBusiness</strong>, and fill in name, address, phone, opening hours, and logo. Yoast needs the Local SEO add-on for the same screen. This is safer than hand-coding because the plugin keeps it valid.</li>
+            <li><strong>If hand-coding,</strong> add one JSON-LD block to the homepage <code>&lt;head&gt;</code> via Divi → Theme Options → Integration, filling in the real details:
+              <pre>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "CR Maids",
+  "url": "https://crmaids.com/",
+  "image": "https://crmaids.com/wp-content/uploads/2025/11/main-logo-e1763962917467.webp",
+  "telephone": "REAL PHONE NUMBER",
+  "address": { "@type": "PostalAddress", "streetAddress": "…", "addressLocality": "…", "addressRegion": "…", "postalCode": "…", "addressCountry": "US" },
+  "openingHoursSpecification": [ { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:00" } ],
+  "areaServed": "…"
+}
+&lt;/script&gt;</pre></li>
+            <li><strong>Match the page.</strong> Every value must appear somewhere visible on the site. Google treats markup that doesn't match visible content as spam.</li>
+            <li><strong>Reuse the existing address and geo data.</strong> The homepage already carries <code>PostalAddress</code> and <code>GeoCoordinates</code> nested in other schema. Copy those values so the two agree.</li>
+          </ol>
+          <div class="verify"><strong>Done when:</strong> the <a href="https://search.google.com/test/rich-results">Rich Results Test</a> detects LocalBusiness with no errors, and the existing FAQPage, Service, and WebSite types are still detected alongside it.</div>
+        </details>
+        <div class="fix-ref"><span class="label">Fix guide</span><code>fixes/structured-data/missing-schema-markup.md</code></div>
+      </article>
+
+      <article class="finding suggestion">
+        <div class="finding-tags">
+          <span class="tag sev">Suggestion</span>
+          <span class="tag cat">Performance</span>
+          <span class="tag effort">Moderate</span>
+        </div>
+        <h3>10. Heavy third-party script footprint</h3>
+        <p>The homepage loads Google Tag Manager, Facebook Pixel, Microsoft UET, Google Ads and DoubleClick, Microsoft Clarity, an Elfsight widget, GoHighLevel LeadConnector, and the UserWay accessibility widget. Each adds network overhead on top of the image weight.</p>
+        <p class="muted">Why it matters: worth an audit of which of these are still in use, then loading the non-critical ones after first paint using Tag Manager's trigger delays. Fold this into the performance work in findings 2 and 3 rather than treating it separately.</p>
+        <details class="howto" open>
+          <summary>How to fix it, step by step <span class="where">Google Tag Manager + WP Rocket</span></summary>
+          <ol>
+            <li><strong>Make an inventory.</strong> List the eight services above and, for each, write down whether it is still used and who owns it. Anything nobody claims gets removed.</li>
+            <li><strong>Bring everything under Tag Manager.</strong> If any pixel is pasted directly into the theme or a plugin, recreate it as a tag in the existing GTM container and delete the hard-coded copy. One container, one place to manage loading.</li>
+            <li><strong>Delay the non-essential tags.</strong> In GTM, change the trigger for Clarity, Bing UET, Facebook Pixel, and the Elfsight widget from "All Pages" to <strong>Window Loaded</strong>, or a Timer trigger of 3 to 5 seconds. Keep GTM itself and Google Ads conversion tags on page view if conversions depend on them.</li>
+            <li><strong>Let WP Rocket delay the rest.</strong> With <strong>Delay JavaScript execution</strong> on (finding 3), UserWay and the LeadConnector chat widget load after the first interaction instead of blocking the first paint.</li>
+          </ol>
+          <div class="verify"><strong>Done when:</strong> the "Reduce the impact of third-party code" entry in PageSpeed Insights drops below about 500 ms, and Total Blocking Time improves alongside it.</div>
+        </details>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="working-well">
+    <div class="section-head">
+      <h2>What's already working</h2>
+      <p class="sub">No action needed here. Worth knowing what not to touch.</p>
+    </div>
+    <ul class="pass-list">
+      <li><span class="mark">✓</span><span><strong>Security and HTTPS.</strong> HTTP forces HTTPS (301), www canonicalizes to the apex (301), HSTS with preload and a one-year max-age, plus CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, and Permissions-Policy headers. Identical on both passes.</span></li>
+      <li><span class="mark">✓</span><span><strong>Indexability basics.</strong> Self-referencing canonical, meta robots set to index, follow with sensible snippet directives, single canonical domain enforced.</span></li>
+      <li><span class="mark">✓</span><span><strong>Lighthouse SEO 100/100</strong> on the homepage, consistent across all runs.</span></li>
+      <li><span class="mark">✓</span><span><strong>Five of seven sitemaps.</strong> The index, all four post sitemaps (200 URLs), and the local sitemap load correctly and are referenced from robots.txt. A sampled blog URL returns 200.</span></li>
+      <li><span class="mark">✓</span><span><strong>Structured data present.</strong> FAQPage, Service, and WebSite with SearchAction, all well-formed.</span></li>
+      <li><span class="mark">✓</span><span><strong>Real 404s.</strong> A non-existent URL returns a genuine 404, not a soft 404.</span></li>
+      <li><span class="mark">✓</span><span><strong>No bot blocking or cloaking.</strong> A spoofed Googlebot user-agent gets the same 200 and the same content as a normal browser.</span></li>
+      <li><span class="mark">✓</span><span><strong>Alt text on sampled images</strong> is descriptive. The scanner flagged a site-wide missing-alt signal worth a fuller image-by-image pass, but this isn't a wholesale failure.</span></li>
+    </ul>
+  </section>
+
+  <section class="next-steps">
+    <div class="section-head"><h2>Recommended order of attack</h2></div>
+    <ol class="steps">
+      <li><div><strong>Fix the two timing-out sitemaps (#1).</strong><span class="note"> The only confirmed critical bug, reproduced identically on every attempt. Have your host check the server error log for the exact timeout cause, then verify in Search Console under Sitemaps.</span></div></li>
+      <li><div><strong>Compress the August photo batch and clear render-blocking scripts (#2 and #3 together).</strong><span class="note"> Convert the oversized JPEGs to WebP, add width and height, then defer non-critical scripts. This moves the Performance score meaningfully and pulls CLS (#4) down as a side effect.</span></div></li>
+      <li><div><strong>Re-enable pinch-zoom (#5).</strong><span class="note"> One-line change to the viewport tag. Immediate accessibility and mobile-usability win.</span></div></li>
+      <li><div><strong>Batch the cleanup items (#6, #7, #8).</strong><span class="note"> Consolidate robots.txt, fix internal links to /contact/, drop duplicate generator tags. None is urgent on its own.</span></div></li>
+      <li><div><strong>Add LocalBusiness schema (#9).</strong><span class="note"> Good return for a local service business's local-pack visibility. Not urgent.</span></div></li>
+      <li><div><strong>Audit third-party scripts (#10).</strong><span class="note"> Fold into the performance work in step 2 rather than doing it separately.</span></div></li>
+    </ol>
+  </section>
+
+  <footer>
+    <p><strong>Methodology:</strong> DataForSEO OnPage and Lighthouse APIs (three homepage runs), live browser checks, curl for status codes, headers, redirect chains, and bot-versus-browser user-agent comparison, and direct fetches of robots.txt and every sitemap. Two full passes were run on 4 September 2026 with identical results; the sitemap timeout was re-confirmed while preparing this report.</p>
+    <p>Prepared as part of an ongoing technical SEO workflow. Re-run after fixes ship to confirm each item clears.</p>
+  </footer>
+
+</div>

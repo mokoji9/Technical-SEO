@@ -30,15 +30,24 @@ Create `audits/{site-name}-{YYYY-MM-DD}/` containing:
 - `findings.md` — raw list of everything found (use `templates/audit-report-template.md`)
 - `issue-tracker.md` — prioritized list (use `templates/issue-tracker-template.md`)
 
-## Optional — Designed HTML report
+## Step 3b — Build the designed HTML report (always, not optional)
 
-If the audit is going to a client or stakeholder (not just internal reference), turn it into a
-polished HTML report instead of handing over raw markdown. Start from
-`templates/report-template.html` — it has the full design system (light/dark theming, severity
-color-coding, stat tiles, finding cards) already built. Read the comment block at the top of
-that file first: it explains what must be rebuilt per audit (the site's real accent color and
-logo, all copy and findings) versus what's safe to reuse as-is (the CSS structure). Load the
-`artifact-design` skill before starting, and publish it as a Claude Artifact.
+Every audit ends with a polished HTML report in the audit folder as `report.html`, published
+as a Claude Artifact. Do this automatically as part of Step 3 — don't wait to be asked and
+don't offer it as an extra. An audit that stops at the markdown files is unfinished.
+
+Start from `templates/report-template.html` — it has the full design system (light/dark
+theming, severity color-coding, stat tiles, finding cards, per-finding step-by-step fix
+blocks) already built. Read the comment block at the top of that file first: it explains what
+must be rebuilt per audit (the site's real accent color and logo, all copy and findings) versus
+what's safe to reuse as-is (the CSS structure). Load the `artifact-design` skill before
+starting.
+
+The report must include, for every finding, a **"How to fix it, step by step"** block: numbered
+steps written for that specific site (name the actual CMS, plugins, and admin screens where
+known), a code snippet where one applies, and a one-line "Done when" verification. Pull the
+steps from the matching guide in `fixes/` and tailor them — don't paste the generic guide.
+Then log the report in the audit's `CHANGELOG.md`.
 
 ## Step 4 — Prioritize
 

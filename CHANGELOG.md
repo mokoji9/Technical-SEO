@@ -11,3 +11,8 @@ Tracks changes to the repo's structure, checklists, and fix guides themselves
 - Added templates: audit report, issue tracker, fix guide
 - Seeded 9 starter fix guides across all categories
 - Not yet connected to GitHub
+- Designed HTML report is now a required step of every audit (`WORKFLOW.md` Step 3b, mirrored
+  in the `technical-seo-audit` skill). Report template gained a per-finding
+  "How to fix it, step by step" block (`.howto`).
+- Added fix guide: `fixes/crawlability/sitemap-file-timeout-error.md`
+- Second audit: crmaids.com (`audits/crmaids-com-2026-09-04/`), with HTML report

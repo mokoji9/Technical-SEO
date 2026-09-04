@@ -226,6 +226,35 @@
   .evidence .status-ok { color: var(--good); font-weight: 600; }
   .evidence .status-bad { color: var(--critical); font-weight: 600; }
 
+  /* ---------- Step-by-step fix block (one per finding — required, not optional) ---------- */
+
+  .howto { margin-top: 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+  .howto summary {
+    cursor: pointer; padding: 11px 14px; font-size: 13px; font-weight: 600; color: var(--accent);
+    list-style: none; display: flex; align-items: center; gap: 10px; user-select: none;
+  }
+  .howto summary::-webkit-details-marker { display: none; }
+  .howto summary::before {
+    content: ''; width: 6px; height: 6px; flex: none; margin-left: 2px;
+    border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+    transform: rotate(-45deg); transition: transform 0.15s ease;
+  }
+  .howto[open] summary::before { transform: rotate(45deg); }
+  .howto summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 8px; }
+  .howto summary .where { font-weight: 500; color: var(--ink-faint); margin-left: auto; font-size: 12px; }
+  .howto ol { margin: 0; padding: 2px 16px 14px 36px; font-size: 14px; color: var(--ink); }
+  .howto li { margin-bottom: 9px; padding-left: 2px; }
+  .howto li:last-child { margin-bottom: 0; }
+  .howto li strong { font-weight: 600; }
+  .howto pre {
+    margin: 8px 0 0; padding: 10px 12px; background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.6; overflow-x: auto;
+  }
+  .howto .verify { margin: 0 16px 14px; padding: 10px 12px; background: var(--good-soft); border-radius: 6px; font-size: 13px; color: var(--ink); }
+  .howto .verify strong { color: var(--good); }
+  .howto li code, .howto .verify code { font-size: 0.92em; background: var(--surface-2); padding: 1px 5px; border-radius: 3px; }
+  @media (prefers-reduced-motion: reduce) { .howto summary::before { transition: none; } }
+
   .fix-ref { margin-top: 14px; display: flex; align-items: baseline; gap: 8px; font-size: 12.5px; }
   .fix-ref .label { color: var(--ink-faint); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 10.5px; }
   .fix-ref code { color: var(--accent); background: var(--accent-soft); padding: 3px 8px; border-radius: 4px; }
@@ -381,6 +410,20 @@
         <div class="verify-note">
           <span class="label">Before changing anything:</span> {{how to confirm this for certain}}
         </div>
+
+        <!-- REQUIRED on every finding: step-by-step fix, tailored to THIS site (name its real
+             CMS, plugins, admin screens). Derive from the matching fixes/ guide; don't paste the
+             generic guide. Keep `open` so the steps are visible at rest and in print. -->
+        <details class="howto" open>
+          <summary>How to fix it, step by step <span class="where">{{Where: e.g. "WordPress admin + hosting panel"}}</span></summary>
+          <ol>
+            <li><strong>{{Step title.}}</strong> {{Exact action, naming the real screen/setting.}}</li>
+            <li><strong>{{Step title.}}</strong> {{Exact action.}}
+              <pre>{{code snippet, only if one genuinely applies}}</pre></li>
+            <li><strong>{{Step title.}}</strong> {{Exact action.}}</li>
+          </ol>
+          <div class="verify"><strong>Done when:</strong> {{one line: the observable result that proves it's fixed}}</div>
+        </details>
 
         <div class="fix-ref"><span class="label">Fix guide</span><code>{{path to the fix guide}}</code></div>
       </article>
