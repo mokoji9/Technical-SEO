@@ -30,6 +30,16 @@ Create `audits/{site-name}-{YYYY-MM-DD}/` containing:
 - `findings.md` — raw list of everything found (use `templates/audit-report-template.md`)
 - `issue-tracker.md` — prioritized list (use `templates/issue-tracker-template.md`)
 
+## Optional — Designed HTML report
+
+If the audit is going to a client or stakeholder (not just internal reference), turn it into a
+polished HTML report instead of handing over raw markdown. Start from
+`templates/report-template.html` — it has the full design system (light/dark theming, severity
+color-coding, stat tiles, finding cards) already built. Read the comment block at the top of
+that file first: it explains what must be rebuilt per audit (the site's real accent color and
+logo, all copy and findings) versus what's safe to reuse as-is (the CSS structure). Load the
+`artifact-design` skill before starting, and publish it as a Claude Artifact.
+
 ## Step 4 — Prioritize
 
 Rank each issue by:

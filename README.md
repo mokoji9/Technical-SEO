@@ -17,7 +17,7 @@ need a technical SEO audit:
 | `checklists/` | What to check, organized by category. Use these to scope an audit. |
 | `fixes/` | Beginner-friendly, step-by-step guides for fixing each specific issue. |
 | `audits/` | One folder per site per audit date. Contains the findings + prioritized issue list for that run. |
-| `templates/` | Blank templates for audit reports, issue tracking, and new fix guides. |
+| `templates/` | Blank templates for audit reports, issue tracking, new fix guides, and a designed HTML client report (`report-template.html`). |
 
 ## The golden rule for every audit
 
@@ -41,7 +41,16 @@ See [`WORKFLOW.md`](WORKFLOW.md) for the full step-by-step process.
 - Structured data (schema markup)
 - Security & internationalization (HTTPS, status codes, hreflang)
 
+## Also available as a Skill
+
+This entire workflow is also packaged as a standalone Claude Skill (`technical-seo-audit`) —
+self-contained, works in any project without this repo being cloned. Install it once
+(`~/.claude/skills/technical-seo-audit/`) and it triggers automatically whenever you ask Claude
+to check a site for SEO issues. Its bundled checklists/fixes/templates are copies of the ones
+in this repo — when you add or edit any of those here, re-sync them into the skill's
+`references/` folder to keep both in sync.
+
 ## Status
 
-🟡 **Workflow setup in progress.** Repo structure and starter fix guides are being drafted.
-Not yet connected to GitHub — say the word when you're ready to push this to a repository.
+🟢 **Live.** Pushed to GitHub. First audit (islandroute.io) complete, including a designed
+HTML report.
