@@ -32,3 +32,17 @@
 
 - {Free tool 1}
 - {Free tool 2}
+
+## 7. Suggested rewritten content (content issues only)
+
+{Only include this section when the root cause is the content itself — thin content,
+duplicate/placeholder copy, a weak or missing meta description, a poor/duplicate title tag,
+generic body copy, etc. Don't just tell the client to "write real copy": draft the actual
+replacement text for the real page(s) affected, using details already on the live page (real
+product/location/service specifics, the site's existing voice and terminology) so it can be
+copy-pasted in with minimal editing. For a template used across many pages, give 2-3 worked
+examples plus the pattern to repeat, not one generic sample.}
+
+- **Page/field:** {URL or template field, e.g. homepage `<title>`, `/state/ohio` meta description}
+- **Current:** `{the existing text, verbatim, or "(none)" if missing}`
+- **Suggested rewrite:** `{the actual drafted replacement text}`

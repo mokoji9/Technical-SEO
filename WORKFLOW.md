@@ -83,6 +83,15 @@ Every fix guide follows the same beginner-friendly format:
 
 If a guide doesn't exist yet for an issue, create one using `templates/fix-guide-template.md`.
 
+If the issue is a **content problem** (thin content, duplicate/placeholder copy, a weak or
+missing meta description, a poor/duplicate title tag, generic body copy), don't stop at telling
+the client to "write real copy" — draft the actual replacement text for the real page(s)
+affected, grounded in what's already on the live page (real product/location/service details,
+the site's existing voice/terminology), using the guide's optional **7. Suggested rewritten
+content** section. For a template shared across many pages, give 2-3 worked examples plus the
+pattern to repeat, not one generic sample. Carry that drafted copy into the HTML report's fix
+card too (a current-vs-suggested block), not just the steps.
+
 ## Step 6 — Verify
 
 After fixes are applied, re-check each issue using the "How to verify" section of its guide.
