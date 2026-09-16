@@ -1,6 +1,6 @@
 # Fix Guide: {Issue Name}
 
-**Category:** {crawlability / indexability / performance / mobile / structured-data / site-architecture / security-international}
+**Category:** {crawlability / indexability / performance / mobile / structured-data / site-architecture / security-international / accessibility}
 
 ## 1. What's wrong
 
