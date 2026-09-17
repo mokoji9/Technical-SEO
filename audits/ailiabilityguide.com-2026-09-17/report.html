@@ -457,19 +457,25 @@
           <span class="tag effort">Moderate</span>
           <span class="tag new">Now confirmed</span>
         </div>
-        <h3>Cloudflare is blocking Googlebot — and breaking real page resources</h3>
+        <h3>Cloudflare is blocking Googlebot, breaking real page resources — and it's intermittent</h3>
         <p>Google Search Console shows <strong>16 pages blocked with a 403</strong>, sourced
         directly from Google's own crawl attempts. Separately, DataForSEO's Lighthouse run — a
         real headless-Chrome render, not a UA spoof — logged three resource requests failing with
-        403 during the page's own load.</p>
+        403 during the page's own load. Re-tested independently later the same day: the same curl
+        request repeated a few seconds apart returned a mix of <code>200</code> and
+        <code>403</code> — the block is probabilistic, not absolute.</p>
         <div class="evidence">
           <div class="cmd">Search Console → Indexing → Pages → Why pages aren't indexed</div>
           <div><span class="status-bad">→ Blocked due to access forbidden (403) · Source: Website · 16 pages</span></div>
           <div class="cmd">Lighthouse render, console errors (this run)</div>
           <div><span class="status-bad">→ 403 on .../navigation/view.min.js, .../image-lazy-loader.min.js, .../cardo_normal_400.woff2</span></div>
+          <div class="cmd">curl (browser UA) x3, a few seconds apart</div>
+          <div><span class="status-bad">→ 200, 403, 403</span></div>
         </div>
         <p class="muted">This is more direct evidence of active harm than a bot-only challenge
-        page — it's why Lighthouse's Best Practices score dropped from 96 to 77 this run.</p>
+        page — it's why Lighthouse's Best Practices score is still 77 today. The intermittency is
+        exactly why a quick manual check can look fine while Google's crawl still gets caught
+        often enough to matter.</p>
         <details class="howto" open>
           <summary>How to fix it, step by step <span class="where">Cloudflare dashboard</span></summary>
           <ol>

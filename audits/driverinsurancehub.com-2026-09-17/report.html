@@ -467,17 +467,22 @@
           <span class="tag effort">Moderate</span>
           <span class="tag new">Now confirmed</span>
         </div>
-        <h3>Cloudflare is blocking Googlebot — confirmed directly in Search Console</h3>
+        <h3>Cloudflare is blocking Googlebot — confirmed, and intermittent rather than a hard block</h3>
         <p>The Sept 6 audit found this via a spoofed user-agent and flagged it as needing
         confirmation. Google Search Console itself now shows the answer: <strong>50 pages under
         "Blocked due to access forbidden (403)"</strong>, sourced directly from Google's own
-        crawl attempts, not a simulation.</p>
+        crawl attempts, not a simulation. Re-tested independently later the same day: the same
+        curl request repeated a few seconds apart returned a mix of <code>200</code> and
+        <code>403</code> — the block is probabilistic, not absolute.</p>
         <div class="evidence">
           <div class="cmd">Search Console → Indexing → Pages → Why pages aren't indexed</div>
           <div><span class="status-bad">→ Blocked due to access forbidden (403) · Source: Website · 50 pages</span></div>
+          <div class="cmd">curl (browser UA) x4, a few seconds apart</div>
+          <div><span class="status-bad">→ 403, 403, 403, 200</span></div>
         </div>
         <p class="muted">This removes the "needs confirming" caveat entirely — the real Googlebot
-        is affected, not just a spoofed test.</p>
+        is affected, not just a spoofed test. The intermittency also explains why a quick manual
+        check can look fine while Google's crawl still gets caught often enough to matter.</p>
         <details class="howto" open>
           <summary>How to fix it, step by step <span class="where">Cloudflare dashboard</span></summary>
           <ol>

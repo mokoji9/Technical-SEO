@@ -1,5 +1,19 @@
 # Changelog — Driver Insurance Hub (driverinsurancehub.com)
 
+## 2026-09-17 (re-verification pass, later same day)
+
+- At the user's request, re-ran every check in this audit independently from scratch rather than
+  reusing the earlier run's results. No fixes had been applied yet, so no finding changed status.
+- Re-confirmed live: curl/UA checks, DataForSEO Lighthouse and on-page data, and WordPress's
+  "No Focus Keyphrase" filter (still 94/94 pages, 449/449 posts) — all unchanged from the earlier
+  run today.
+- GSC and Ahrefs both still show the same "last update" timestamp as the earlier run (their own
+  data-refresh lag) — those specific numbers are identical by definition, not skipped.
+- **Refinement:** repeated curl checks a few seconds apart returned a mix of `200` and `403` for
+  the same request — the Cloudflare block is intermittent/probabilistic, not a hard 100% block.
+  Added this to the shared `fixes/crawlability/cloudflare-bot-protection-blocking-crawlers.md`
+  guide (run the curl test several times, not once) since it applies beyond this one site.
+
 ## 2026-09-17
 
 - Ran a follow-up automated audit, this time including a direct connected-account check via

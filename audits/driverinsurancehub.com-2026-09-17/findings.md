@@ -1,12 +1,20 @@
 # Technical SEO Audit — Driver Insurance Hub (driverinsurancehub.com)
 
-**Date:** 2026-09-17
+**Date:** 2026-09-17 (independently re-verified same day — see note below)
 **Audited by:** Claude
 **Method:** Automated — DataForSEO OnPage/Lighthouse API, curl header/status/UA checks, live
 browser rendering, **plus a direct connected-account check via Claude in Chrome**: the user's own
 logged-in Google Search Console property, Ahrefs Site Audit project, and WordPress admin for this
 domain.
 **Scope:** Full-site re-check, follow-up to the 2026-09-06 audit (`../driverinsurancehub.com-2026-09-06/`) — this run's main addition is verifying prior findings against real GSC/Ahrefs data instead of crawl-only signals, plus whatever that surfaced that a crawl alone couldn't see.
+
+**Note on this same-day re-run:** at the user's request, every check in this audit was re-run
+independently from scratch rather than reused from the earlier run earlier today. All findings
+below were re-confirmed live. GSC and Ahrefs both still show "last update" timestamps unchanged
+from the earlier run (their own data-refresh lag, not a skipped check), so those specific numbers
+are identical by definition. The live crawl/curl/WordPress checks were genuinely redone and
+turned up one refinement: the Cloudflare block is **intermittent, not a hard 100% block** — see
+the Critical finding below.
 
 ## Summary
 
@@ -26,12 +34,17 @@ to them, which is a well-known signal that suppresses crawl priority and indexin
 
 ### 🔴 Critical
 
-- **Cloudflare bot protection is blocking Googlebot — now confirmed directly by Google Search
-  Console, not just a spoofed user-agent test.** GSC → Indexing → Pages shows **50 pages** under
-  "Blocked due to access forbidden (403)," matching the same 403/`noindex,nofollow` challenge
-  page independently found via curl and DataForSEO's headless-Chrome Lighthouse crawl. This
-  removes the "needs confirming via Search Console" caveat from the 2026-09-06 audit — it's
-  confirmed. Category: Crawlability. See
+- **Cloudflare bot protection is blocking Googlebot — confirmed directly by Google Search
+  Console, and now shown to be intermittent rather than a hard 100% block.** GSC → Indexing →
+  Pages shows **50 pages** under "Blocked due to access forbidden (403)," matching the 403/
+  `noindex,nofollow` challenge page independently found via curl and DataForSEO's headless-Chrome
+  Lighthouse crawl. Re-testing today with repeated identical browser-UA `curl` requests a few
+  seconds apart returned a mix of `200` and `403` — the block is probabilistic (Cloudflare's bot
+  management likely weighs additional signals like TLS fingerprint and request frequency, not
+  just the User-Agent string), which is exactly why a quick manual check can look "fine" while
+  Google's own crawl still gets blocked often enough to matter. This removes the "needs
+  confirming via Search Console" caveat from the 2026-09-06 audit — it's confirmed, and now
+  better understood. Category: Crawlability. See
   `../../fixes/crawlability/cloudflare-bot-protection-blocking-crawlers.md`.
 
 - **69% of the site (450 of 654 known pages) is not indexed by Google — and most of that isn't

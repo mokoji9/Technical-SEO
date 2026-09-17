@@ -41,6 +41,15 @@ entirely.
 > correct, expected behavior, not a bug. The `curl` test is a useful early signal, but Google
 > Search Console's "Test Live URL" (using Google's real crawler) is the only fully reliable
 > way to confirm whether the *real* Googlebot is affected.
+>
+> **Run the curl test several times, not once.** Cloudflare's bot management is often
+> probabilistic rather than a hard rule — even the exact same request (same UA, same everything
+> curl controls) can return `200` on one attempt and `403` on the next few seconds later,
+> because Cloudflare is also weighing signals curl can't spoof (TLS/JA3 fingerprint, request
+> frequency, IP reputation). A single `200` doesn't clear the site, and a single `403` doesn't
+> prove a hard block — run it 3-5 times a few seconds apart and report the pattern (e.g. "3 of 4
+> attempts blocked"), which is also a more honest signal to hand the client than a one-shot
+> result either way.
 
 ## 4. Step-by-step fix (Cloudflare)
 

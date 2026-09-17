@@ -1,6 +1,6 @@
 # Technical SEO Audit — AI Liability Guide (ailiabilityguide.com)
 
-**Date:** 2026-09-17
+**Date:** 2026-09-17 (independently re-verified same day — see note below)
 **Audited by:** Claude
 **Method:** Automated — DataForSEO OnPage/Lighthouse API, curl header/status/UA checks, live
 browser rendering, **plus a direct connected-account check via Claude in Chrome**: the user's own
@@ -10,6 +10,13 @@ this domain.
 (`../ailiabilityguide.com-2026-09-06/`) — verifying prior findings against real GSC/Ahrefs/
 WordPress data instead of a small crawl sample, plus whatever that surfaced that a 2-page sample
 couldn't see.
+
+**Note on this same-day re-run:** at the user's request, every check in this audit was re-run
+independently from scratch rather than reused from the earlier run earlier today. GSC and Ahrefs
+both still show "last update" timestamps unchanged from the earlier run (their own data-refresh
+lag, not a skipped check), so those specific numbers are identical by definition. The live
+crawl/curl/WordPress checks were genuinely redone and turned up one refinement: the Cloudflare
+block is **intermittent, not a hard 100% block** — see the Critical finding below.
 
 ## Summary
 
@@ -40,8 +47,12 @@ pages/posts have no Yoast Focus Keyphrase set, the same pattern found on the oth
   with 403 during the page's own load: `wp-includes/js/.../navigation/view.min.js`, the Bluehost
   plugin's `image-lazy-loader.min.js`, and the theme's `cardo_normal_400.woff2` webfont. This is a
   more direct sign of active breakage than a bot-only challenge page — Lighthouse's Best Practices
-  score dropped from 96 (2026-09-06) to 77 largely because of these console errors. Category:
-  Crawlability. See `../../fixes/crawlability/cloudflare-bot-protection-blocking-crawlers.md`.
+  score is still 77 today (reconfirmed), largely because of these console errors. Re-testing today
+  with repeated identical browser-UA `curl` requests a few seconds apart returned a mix of `200`
+  and `403` — the block is **intermittent/probabilistic**, not a hard 100% block, which is exactly
+  why a quick manual check can look fine while Google's own crawl still gets caught often enough
+  to matter. Category: Crawlability. See
+  `../../fixes/crawlability/cloudflare-bot-protection-blocking-crawlers.md`.
 
 - **93% of known pages (193 of 207) are not indexed by Google.** GSC → Indexing → Pages
   breakdown:
