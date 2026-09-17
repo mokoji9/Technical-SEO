@@ -12,9 +12,10 @@ Every time an audit starts, always ask:
 - If **automated**: use available tools (Semrush, DataForSEO, site audit/crawl skills) to gather crawl data, performance data, backlinks, indexation status — **and** check the user's own connected accounts for the domain, using Claude in Chrome (the user's real, logged-in browser, not the sandboxed preview browser):
   - **Google Search Console** — Coverage/Page Indexing status, Core Web Vitals (field data), Sitemaps status, Manual Actions/Security Issues, for the matching property.
   - **Ahrefs** (or whichever rank/backlink tool is logged in) — Site Audit health score, organic keyword rankings, backlink profile.
-  - Anything else already logged in and clearly relevant (Bing Webmaster Tools, a CMS's SEO plugin). Don't hunt through unrelated accounts.
+  - **The site's own CMS admin, if logged in** (WordPress + Yoast/RankMath, Shopify, Webflow, etc.) — check its bulk SEO-health views, not just individual pages. On WordPress + Yoast, for example, the Pages/Posts list has an "SEO Score" column and filter with a "No Focus Keyphrase" option — filtering by it gives an exact sitewide count in one step, and often surfaces the *process* reason behind on-page findings (the plugin's checklist never having triggered for any content usually explains why a missing-meta-description or overly-long-title finding is sitewide rather than isolated).
+  - Anything else already logged in and clearly relevant (Bing Webmaster Tools). Don't hunt through unrelated accounts.
 
-  If GSC/Ahrefs aren't logged in, the site isn't added there, or Claude in Chrome isn't available, say so and continue with the other tools — note what was skipped so the audit isn't presented as more complete than it is. Never state a GSC/Ahrefs number from memory or infer it from crawl data — if you didn't actually see it in the dashboard, call it unverified.
+  If GSC/Ahrefs/the CMS admin aren't logged in, the site isn't added there, or Claude in Chrome isn't available, say so and continue with the other tools — note what was skipped so the audit isn't presented as more complete than it is. Never state a number from one of these dashboards from memory or infer it from crawl data — if you didn't actually see it there, call it unverified.
 - If **manual**: ask what data the user has (e.g. a Screaming Frog CSV, Google Search Console export, PageSpeed Insights report, robots.txt/sitemap URLs) and analyze what's provided.
 
 Never assume — always confirm which mode for that specific audit.

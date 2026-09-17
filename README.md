@@ -27,8 +27,9 @@ need a technical SEO audit:
 This is a standing rule — never skip asking, even on repeat audits of the same site.
 
 - **Automated** → uses connected tools (Semrush, DataForSEO, site crawlers, PageSpeed data,
-  etc.) plus the user's own logged-in accounts (Google Search Console, Ahrefs) via Claude in
-  Chrome, since those hold site-owner-only data no crawler/API can see.
+  etc.) plus the user's own logged-in accounts (Google Search Console, Ahrefs, and the site's CMS
+  admin — e.g. WordPress + Yoast) via Claude in Chrome, since those hold site-owner-only data no
+  crawler/API can see.
 - **Manual** → you paste in / upload data and I analyze it
 
 See [`WORKFLOW.md`](WORKFLOW.md) for the full step-by-step process.

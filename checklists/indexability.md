@@ -11,5 +11,9 @@ Can search engines index the pages once crawled — and are the *right* pages be
 - [ ] Paginated series use correct canonical/self-referencing setup
 - [ ] Soft 404s are identified and fixed (page returns 200 but shows "not found" content)
 - [ ] Parameter handling is configured (GSC or robots.txt) for tracking/filter URLs
+- [ ] If the CMS's on-page SEO plugin admin is accessible (Yoast/RankMath/etc.), check its own
+      bulk SEO-health filters (e.g. Yoast's "No Focus Keyphrase" / SEO score columns) — a plugin
+      whose checklist was never engaged for any content is often the process cause behind
+      sitewide meta-description/title findings, not just a separate issue to log
 
 **Related fix guides:** `fixes/indexability/`
