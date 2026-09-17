@@ -9,7 +9,14 @@ Every time an audit starts, always ask:
 
 > "Do you want me to pull data automatically using connected SEO tools, or will you provide the data yourself (crawl export, Search Console, PageSpeed report, etc.)?"
 
-- If **automated**: use available tools (Semrush, DataForSEO, site audit/crawl skills) to gather crawl data, performance data, backlinks, indexation status — **and** check the user's own connected accounts for the domain, using Claude in Chrome (the user's real, logged-in browser, not the sandboxed preview browser):
+- If **automated**: use available tools (Semrush, DataForSEO, site audit/crawl skills) to gather crawl data, performance data, backlinks, indexation status — **and** check the user's own connected accounts for the domain, using Claude in Chrome (the user's real, logged-in browser, not the sandboxed preview browser).
+
+  **Before checking GSC/Ahrefs/the CMS admin, confirm the right browser is actually connected** — this catches a connection problem upfront instead of mid-audit:
+  1. Call `list_connected_browsers`, then navigate it to one target dashboard (GSC is a good test). Signed-in view → connected correctly, proceed.
+  2. Logged-out/marketing page → wrong profile is connected. Walk through, in order, stopping as soon as it works: (a) ask which Chrome profile the user is actually logged into these accounts in; (b) in that profile, confirm the Claude in Chrome extension is installed and enabled (`chrome://extensions`); (c) have them click the extension's own icon there and confirm it's signed into the same Claude account as this session — installed isn't enough, it must be open and signed in; (d) call `switch_browser` and have them watch for a "Connect" prompt in that profile; (e) if that still doesn't work, have them **fully quit Chrome** (every window/profile, not just tabs) and reopen directly into that one profile only, then retry `switch_browser` — a stale connection to the wrong profile is usually what's blocking the new one.
+  3. Still not connecting after that → stop retrying, fall back to the user relaying the key screens/data manually, and note that in the audit.
+
+  Once connected, check:
   - **Google Search Console** — Coverage/Page Indexing status, Core Web Vitals (field data), Sitemaps status, Manual Actions/Security Issues, for the matching property.
   - **Ahrefs** (or whichever rank/backlink tool is logged in) — Site Audit health score, organic keyword rankings, backlink profile.
   - **The site's own CMS admin, if logged in** (WordPress + Yoast/RankMath, Shopify, Webflow, etc.) — check its bulk SEO-health views, not just individual pages. On WordPress + Yoast, for example, the Pages/Posts list has an "SEO Score" column and filter with a "No Focus Keyphrase" option — filtering by it gives an exact sitewide count in one step, and often surfaces the *process* reason behind on-page findings (the plugin's checklist never having triggered for any content usually explains why a missing-meta-description or overly-long-title finding is sitewide rather than isolated).
