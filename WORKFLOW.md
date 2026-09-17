@@ -71,7 +71,16 @@ Fix order = highest severity + lowest effort first ("quick wins" first).
 
 ## Step 5 — Fix, using the step-by-step guides
 
-For each issue, find (or create) its guide in `fixes/{category}/{issue-name}.md`.
+For each issue, find (or create) its guide. Check `fixes/{category}/` for an existing one first
+— reuse it as-is **only if it's genuinely site-agnostic** (no real domain, brand, page path, or
+drafted copy anywhere in it). Otherwise create/use
+`fixes/{category}/{site-domain}--{issue-name}.md`, scoped by site domain: a fix guide almost
+always ends up with real specifics baked in (the actual CMS, real code snippets, real drafted
+copy), so reusing one written for a *different* site under the same generic issue name hands the
+client wrong instructions — wrong domain, wrong brand, wrong example — without anyone noticing.
+When unsure whether a guide is generic enough to share, scope it: a duplicated generic guide
+costs nothing, a misattributed specific one is a real error in delivered work.
+
 Every fix guide follows the same beginner-friendly format:
 
 1. **What's wrong** — plain-English explanation
