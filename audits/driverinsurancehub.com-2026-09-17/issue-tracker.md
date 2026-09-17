@@ -8,6 +8,7 @@
 | 4 | No meta description on 614/731 pages | Indexability | 🟠 High | Major (per-page) | `fixes/indexability/driverinsurancehub.com--missing-meta-descriptions.md` | ⬜ Not started |
 | 5 | Title too long on 273/731 pages | Indexability | 🟠 High | Major (per-page) | `fixes/indexability/driverinsurancehub.com--overly-long-page-titles.md` | ⬜ Not started |
 | 6 | No baseline security response headers | Security & International | 🟠 High | Quick win | `fixes/security-international/missing-security-headers.md` | ⬜ Not started (unverified this run) |
+| 6b | No Yoast Focus Keyphrase on any of 543 pages/posts (100%) | Indexability | 🟠 High | Major (per-page) | `fixes/indexability/driverinsurancehub.com--no-focus-keyphrase-set.md` | ⬜ Not started |
 | 7 | Duplicate google-site-verification tag | Indexability | 🟡 Medium | Quick win | `fixes/indexability/driverinsurancehub.com--duplicate-google-site-verification-tag.md` | ⬜ Not started |
 | 8 | Site title wraps mid-word on mobile | Mobile | 🟡 Medium | Quick win | `fixes/mobile/driverinsurancehub.com--site-title-wrapping-mid-word.md` | ⬜ Not started (unverified this run) |
 | 9 | Multiple H1 tags on 7 pages | Site Architecture | 🟡 Medium | Quick win | `fixes/site-architecture/multiple-h1-tags.md` | ⬜ Not started |

@@ -145,7 +145,7 @@
 
   /* ---------- Stat tiles ---------- */
 
-  .stat-groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+  .stat-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 32px; }
   .stat-group { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
   .stat-group h3 {
     font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700;
@@ -386,6 +386,9 @@
       found <strong>44 pages with zero incoming internal links</strong>, a well-known cause of
       exactly that pattern. Meta descriptions and title length, previously checked on 2 sample
       pages, are now confirmed sitewide via Ahrefs at 614 and 273 affected pages respectively.
+      Checking WordPress directly turned up the likely process cause behind that: <strong>all 543
+      published pages and posts have no Yoast Focus Keyphrase set</strong>, so Yoast's own
+      on-page checklist has never actually triggered for any of them.
     </p>
 
     <div class="stat-groups">
@@ -405,6 +408,14 @@
           <div class="stat-tile bad"><div class="num">44</div><div class="name">Orphan pages</div></div>
           <div class="stat-tile bad"><div class="num">614</div><div class="name">No meta description</div></div>
           <div class="stat-tile warn"><div class="num">273</div><div class="name">Title too long</div></div>
+        </div>
+      </div>
+      <div class="stat-group">
+        <h3>WordPress / Yoast</h3>
+        <div class="stat-tiles">
+          <div class="stat-tile bad"><div class="num">543<small>/543</small></div><div class="name">No focus keyphrase</div></div>
+          <div class="stat-tile good"><div class="num">449</div><div class="name">Published posts</div></div>
+          <div class="stat-tile good"><div class="num">94</div><div class="name">Published pages</div></div>
         </div>
       </div>
       <div class="stat-group">
@@ -434,7 +445,7 @@
 
     <div class="severity-strip">
       <div class="sev-tile critical"><div class="count">3</div><div class="lbl">Critical</div></div>
-      <div class="sev-tile high"><div class="count">3</div><div class="lbl">High</div></div>
+      <div class="sev-tile high"><div class="count">4</div><div class="lbl">High</div></div>
       <div class="sev-tile medium"><div class="count">3</div><div class="lbl">Medium</div></div>
       <div class="sev-tile low"><div class="count">1</div><div class="lbl">Low</div></div>
       <div class="sev-tile suggestion"><div class="count">2</div><div class="lbl">Suggestion</div></div>
@@ -613,6 +624,49 @@
           a SERP preview tool shows no truncation.</div>
         </details>
         <div class="fix-ref"><span class="label">Fix guide</span><code>fixes/indexability/driverinsurancehub.com--overly-long-page-titles.md</code></div>
+      </article>
+
+      <article class="finding high">
+        <div class="finding-tags">
+          <span class="tag sev">High</span>
+          <span class="tag cat">Indexability</span>
+          <span class="tag effort">Major</span>
+          <span class="tag new">New</span>
+        </div>
+        <h3>Every page and post — 543 of 543 (100%) — has no Yoast Focus Keyphrase set</h3>
+        <p>Checked directly in the WordPress admin. The focus keyphrase itself isn't read by
+        Google — it's what powers Yoast's own on-page checklist while writing. With it never set
+        on anything, that checklist has never actually triggered for any of the 543 pieces of
+        content, which is very likely why the meta-description and title-length problems above are
+        sitewide rather than isolated: the tool that would have caught them, page by page, was
+        never engaged.</p>
+        <div class="evidence">
+          <div class="cmd">WordPress admin → Pages → SEO Score filter → "SEO: No Focus Keyphrase"</div>
+          <div><span class="status-bad">→ 94 of 94 pages</span></div>
+          <div class="cmd">WordPress admin → Posts → SEO Score filter → "SEO: No Focus Keyphrase"</div>
+          <div><span class="status-bad">→ 449 of 449 posts</span></div>
+        </div>
+        <details class="howto" open>
+          <summary>How to fix it, step by step <span class="where">WordPress admin → Yoast SEO panel</span></summary>
+          <ol>
+            <li><strong>Make it a required publishing step</strong> for new content going forward.</li>
+            <li><strong>Work back through existing content by real traffic potential</strong>
+              (GSC → Performance), not alphabetically through all 543.</li>
+            <li><strong>Set a keyphrase that matches real search intent</strong> — the
+              state/city + "rideshare insurance" pattern this site already uses in its URLs.</li>
+          </ol>
+          <div class="rewrite">
+            <div class="current"><span class="label">Current (homepage)</span>(none set)</div>
+            <div class="suggested"><span class="label">Suggested keyphrase</span>rideshare insurance guide</div>
+          </div>
+          <div class="rewrite">
+            <div class="current"><span class="label">Current (Texas page)</span>(none set)</div>
+            <div class="suggested"><span class="label">Suggested keyphrase</span>Texas rideshare insurance</div>
+          </div>
+          <div class="verify"><strong>Done when:</strong> the "SEO: No Focus Keyphrase" filter
+          count drops as pages are updated, and Yoast's checklist shows real feedback per page.</div>
+        </details>
+        <div class="fix-ref"><span class="label">Fix guide</span><code>fixes/indexability/driverinsurancehub.com--no-focus-keyphrase-set.md</code></div>
       </article>
 
       <article class="finding high">

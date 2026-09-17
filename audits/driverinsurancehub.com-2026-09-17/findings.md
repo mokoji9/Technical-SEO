@@ -4,7 +4,8 @@
 **Audited by:** Claude
 **Method:** Automated — DataForSEO OnPage/Lighthouse API, curl header/status/UA checks, live
 browser rendering, **plus a direct connected-account check via Claude in Chrome**: the user's own
-logged-in Google Search Console property and Ahrefs Site Audit project for this domain.
+logged-in Google Search Console property, Ahrefs Site Audit project, and WordPress admin for this
+domain.
 **Scope:** Full-site re-check, follow-up to the 2026-09-06 audit (`../driverinsurancehub.com-2026-09-06/`) — this run's main addition is verifying prior findings against real GSC/Ahrefs data instead of crawl-only signals, plus whatever that surfaced that a crawl alone couldn't see.
 
 ## Summary
@@ -76,6 +77,18 @@ to them, which is a well-known signal that suppresses crawl priority and indexin
   See `../../fixes/indexability/driverinsurancehub.com--overly-long-page-titles.md` — now includes
   drafted, close-to-copy-paste replacement titles for the homepage, Colorado, Chicago, and Texas
   pages, plus the pattern to repeat across the rest.
+
+- **Every published page and post — 543 of 543 (100%) — has no Yoast Focus Keyphrase set.**
+  Checked directly in the WordPress admin: Pages → SEO Score filter → "SEO: No Focus Keyphrase"
+  returns all 94 pages; Posts → the same filter returns all 449 posts. To be precise about impact:
+  the focus keyphrase field itself isn't read by Google — it's what powers Yoast's own on-page
+  checklist while writing (title contains keyphrase, meta description present, keyphrase in the
+  first paragraph, etc.). With it never set on anything, that checklist has never actually
+  triggered for any of the 543 pieces of content — which is very likely *why* the meta-description
+  and title-length problems above are sitewide rather than isolated: the tool that would have
+  caught them, page by page, was never engaged. Category: Indexability. See
+  `../../fixes/indexability/driverinsurancehub.com--no-focus-keyphrase-set.md` (includes drafted
+  example keyphrases for the homepage and three state/city pages, plus the pattern to repeat).
 
 - **No baseline security response headers** — carried forward from 2026-09-06, not
   independently re-verified this run (Cloudflare's challenge response makes a plain `curl` header

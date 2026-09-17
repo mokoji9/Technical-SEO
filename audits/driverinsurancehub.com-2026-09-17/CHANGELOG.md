@@ -18,6 +18,11 @@
   `fixes/site-architecture/driverinsurancehub.com--orphan-pages-no-internal-links.md`.
 - **New finding:** 7 pages with multiple `<h1>` tags (Ahrefs Site Audit); references the existing
   generic `fixes/site-architecture/multiple-h1-tags.md` guide.
+- **New finding:** checked the WordPress admin directly and found all 543 published pages/posts
+  (94 pages + 449 posts, 100%) have no Yoast Focus Keyphrase set — the likely process root cause
+  behind the sitewide meta-description and title-length gaps, since Yoast's on-page checklist
+  never actually triggers without one. New fix guide:
+  `fixes/indexability/driverinsurancehub.com--no-focus-keyphrase-set.md`.
 - **Corrected a defect in the 2026-09-06 audit's delivered materials**: two of its linked fix
   guides (`overly-long-page-titles.md`, `missing-favicon.md`) were actually written for a
   different site (ailiabilityguide.com) that happened to hit the same generic issue name first.
