@@ -60,6 +60,14 @@ The report must include, for every finding, a **"How to fix it, step by step"** 
 steps written for that specific site (name the actual CMS, plugins, and admin screens where
 known), a code snippet where one applies, and a one-line "Done when" verification. Pull the
 steps from the matching guide in `fixes/` and tailor them — don't paste the generic guide.
+
+The template's stat cards include a real score bar (width = the actual 0-100 Lighthouse score)
+and, for Core Web Vitals, a qualitative label set from Google's real published thresholds only
+(e.g. LCP good <2.5s/needs work <4s/poor ≥4s) — never a guess. The findings-by-category chart
+stacks each category's real findings by severity, from that audit's own counts — omit categories
+with zero findings rather than padding the chart. Both are genuine data visualizations, not
+decoration — never fabricate a number or trend to fill them in.
+
 Then log the report in the audit's `CHANGELOG.md`.
 
 ## Step 4 — Prioritize

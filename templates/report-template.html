@@ -1,11 +1,12 @@
 <!--
-  DESIGNED HTML AUDIT REPORT — TEMPLATE
+  DESIGNED HTML AUDIT REPORT — TEMPLATE (v2, dashboard-influenced redesign)
 
   This is the reusable structure/CSS system behind a client-facing technical SEO report
-  (first built for the islandroute.io audit). It is a STARTING POINT, not a fill-in-the-blanks
-  form — per WORKFLOW.md / the technical-seo-audit skill, load the `artifact-design` skill
-  before using this, and treat every {{PLACEHOLDER}} below as something to genuinely rebuild
-  for the site being audited, not just text-swap:
+  (first built for the islandroute.io audit; redesigned after a client design reference —
+  a patient-portal dashboard — to read as a real data product, not a plain document). It is a
+  STARTING POINT, not a fill-in-the-blanks form — per WORKFLOW.md / the technical-seo-audit
+  skill, load the `artifact-design` skill before using this, and treat every {{PLACEHOLDER}}
+  below as something to genuinely rebuild for the site being audited, not just text-swap:
 
   - {{ACCENT COLOR}} — pull the site's REAL brand color from its own logo/site (same-origin
     fetch to avoid CORS/hotlink issues), don't reuse a generic teal. If no logo/brand color is
@@ -18,13 +19,21 @@
     description, poor title tag). Shows the real current text next to a drafted replacement,
     pulled from the fix guide's "Suggested rewritten content" section. Omit the whole `.rewrite`
     div for findings that aren't a content problem.
+  - {{.score-bar fill}} — the `width` on each `.bar-fill` must equal the real Lighthouse score
+    (0-100). Never fabricate a trend or a number the audit didn't actually measure.
+  - {{.category-chart rows}} — one `.cat-row` per category that has at least one finding, built
+    from the REAL per-category severity counts in that audit's `issue-tracker.md` (each `<span>`
+    segment's `width` is that severity's share of the category's total findings, in severity
+    order: critical → high → medium → low → suggestion). Omit categories with zero findings —
+    don't pad the chart to look fuller.
   - Fonts (Fraunces / IBM Plex Sans / IBM Plex Mono) and the severity color system
     (critical/high/medium/low/suggestion) are safe to keep as-is — they're subject-agnostic and
     already accessible in both themes — but reconsider them if the subject calls for a
     different typographic personality.
 
-  Everything else (grid structure, stat tiles, severity strip, finding-card evidence blocks,
-  numbered next-steps, light/dark theming via CSS custom properties) is the reusable part.
+  Everything else (grid structure, pill tags, stat/score cards, the category chart, finding-card
+  evidence blocks, numbered next-steps, light/dark theming via CSS custom properties) is the
+  reusable part.
 -->
 <title>{{Site Name}} SEO Audit</title>
 <style>
@@ -102,7 +111,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  .page { max-width: 860px; margin: 0 auto; padding: 0 24px 96px; }
+  .page { max-width: 880px; margin: 0 auto; padding: 0 24px 96px; }
 
   code, .mono { font-family: 'IBM Plex Mono', 'SF Mono', Consolas, monospace; }
   h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; text-wrap: balance; margin: 0; }
@@ -119,12 +128,12 @@
   }
 
   .route-motif { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.5; pointer-events: none; }
-  .header-inner { position: relative; max-width: 812px; margin: 0 auto; }
-  .brand-row { display: flex; align-items: center; gap: 14px; margin-bottom: 34px; }
+  .header-inner { position: relative; max-width: 832px; margin: 0 auto; }
+  .brand-row { display: flex; align-items: center; gap: 14px; margin-bottom: 34px; flex-wrap: wrap; }
 
   /* {{LOGO MARK}} placeholder — swap for the site's real logo (inline data URI) when one exists */
   .logo-mark {
-    width: 30px; height: 30px; border-radius: 8px;
+    width: 32px; height: 32px; border-radius: 9px;
     background: var(--accent); color: var(--accent-ink);
     display: flex; align-items: center; justify-content: center;
     font-family: 'Fraunces', serif; font-weight: 700; font-size: 15px; flex: none;
@@ -142,12 +151,12 @@
   .eyebrow::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
 
   .report-header h1 { font-size: 40px; font-weight: 600; letter-spacing: -0.01em; max-width: 20ch; }
-  .report-header .dek { margin-top: 14px; font-size: 17px; color: var(--ink-muted); max-width: 56ch; }
+  .report-header .dek { margin-top: 14px; font-size: 17px; color: var(--ink-muted); max-width: 58ch; }
 
   .meta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
   .meta-chip {
     display: flex; align-items: baseline; gap: 6px; padding: 7px 12px;
-    background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px; font-size: 12.5px;
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 7px; font-size: 12.5px;
   }
   .meta-chip .label { color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.06em; font-size: 10.5px; font-weight: 600; }
   .meta-chip .value { color: var(--ink); font-weight: 500; }
@@ -155,34 +164,64 @@
   /* ---------- Sections ---------- */
 
   section { padding-top: 56px; }
-  .section-head { margin-bottom: 24px; }
+  .section-head { margin-bottom: 24px; display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
   .section-head h2 { font-size: 26px; font-weight: 600; }
   .section-head .sub { color: var(--ink-muted); font-size: 15px; margin-top: 6px; max-width: 62ch; }
   .verdict { font-size: 17px; line-height: 1.65; max-width: 68ch; color: var(--ink); }
   .verdict strong { font-weight: 600; }
 
-  /* ---------- Stat tiles ---------- */
+  /* ---------- Pill tags (shared by finding cards + chart legends) ---------- */
 
-  .stat-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
-  .stat-group { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 5px 11px; border-radius: 999px; line-height: 1;
+  }
+  .tag.sev { background: var(--sev-color, var(--border)); color: var(--surface); }
+  .tag.sev::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.9; }
+  .tag.cat { background: var(--surface-2); color: var(--ink-muted); border: 1px solid var(--border); font-weight: 600; }
+  .tag.effort { background: transparent; color: var(--ink-faint); border: 1px dashed var(--border); font-weight: 600; }
+
+  /* ---------- Stat / score cards ---------- */
+
+  .stat-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-top: 32px; }
+  .stat-group { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
   .stat-group h3 {
     font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; font-weight: 600;
     text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin-bottom: 16px;
   }
-  .stat-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 10px; }
+  .stat-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 14px; }
   .stat-tile .num {
-    font-family: 'Fraunces', serif; font-size: 30px; font-weight: 600;
+    font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600;
     font-variant-numeric: tabular-nums; line-height: 1;
   }
-  .stat-tile .num small { font-size: 15px; font-weight: 500; color: var(--ink-faint); }
+  .stat-tile .num small { font-size: 14px; font-weight: 500; color: var(--ink-faint); }
   .stat-tile .name { font-size: 12.5px; color: var(--ink-muted); margin-top: 5px; }
   .stat-tile.good .num { color: var(--good); }
   .stat-tile.warn .num { color: var(--high); }
+  .stat-tile.bad .num { color: var(--critical); }
+
+  /* Score bars: width = the real 0-100 Lighthouse score. Only use on 0-100 metrics. */
+  .stat-tile .bar-track { margin-top: 9px; height: 5px; border-radius: 3px; background: var(--surface-2); overflow: hidden; }
+  .stat-tile .bar-fill { height: 100%; border-radius: 3px; background: var(--good); }
+  .stat-tile.warn .bar-fill { background: var(--high); }
+  .stat-tile.bad .bar-fill { background: var(--critical); }
+
+  /* Qualitative badge for non-0-100 metrics (Core Web Vitals) — label from real thresholds only:
+     LCP good <2.5s/needs work <4s/poor ≥4s; CLS good <0.1/needs work <0.25/poor ≥0.25;
+     TBT good <200ms/needs work <600ms/poor ≥600ms. Never guess a badge without the real number. */
+  .stat-tile .qual {
+    display: inline-block; margin-top: 8px; font-size: 10.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.04em; padding: 3px 8px; border-radius: 999px;
+  }
+  .stat-tile.good .qual { background: var(--good-soft); color: var(--good); }
+  .stat-tile.warn .qual { background: var(--high-soft); color: var(--high); }
+  .stat-tile.bad .qual { background: var(--critical-soft); color: var(--critical); }
 
   /* ---------- Severity summary strip ---------- */
 
-  .severity-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 32px; }
-  .sev-tile { border-radius: 10px; padding: 16px 14px; border: 1px solid var(--border); }
+  .severity-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 16px; }
+  .sev-tile { border-radius: 12px; padding: 16px 14px; border: 1px solid var(--border); }
   .sev-tile .count { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; }
   .sev-tile .lbl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
   .sev-tile.critical { background: var(--critical-soft); }
@@ -196,12 +235,31 @@
   .sev-tile.suggestion { background: var(--suggestion-soft); }
   .sev-tile.suggestion .count, .sev-tile.suggestion .lbl { color: var(--suggestion); }
 
+  /* ---------- Findings-by-category chart ---------- */
+  /* One .cat-row per category with ≥1 finding. Segment widths are that severity's share of the
+     category's own finding count (they sum to 100% of the row, not of the whole audit). */
+
+  .category-chart { margin-top: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; }
+  .category-chart h3 {
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin-bottom: 18px;
+  }
+  .cat-row { display: grid; grid-template-columns: minmax(110px, 150px) 1fr 28px; align-items: center; gap: 14px; padding: 8px 0; }
+  .cat-row + .cat-row { border-top: 1px solid var(--border); }
+  .cat-row .cat-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+  .cat-row .cat-bar { display: flex; height: 10px; border-radius: 5px; overflow: hidden; background: var(--surface-2); }
+  .cat-row .cat-bar span { height: 100%; }
+  .cat-row .cat-total { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-faint); text-align: right; font-variant-numeric: tabular-nums; }
+
+  .chart-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-muted); }
+  .chart-legend .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+
   /* ---------- Finding cards ---------- */
 
   .findings-list { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
   .finding {
     background: var(--surface); border: 1px solid var(--border);
-    border-left: 4px solid var(--sev-color, var(--border)); border-radius: 10px;
+    border-left: 3px solid var(--sev-color, var(--border)); border-radius: 14px;
     padding: 22px 24px; box-shadow: var(--shadow);
   }
   .finding.critical { --sev-color: var(--critical); }
@@ -211,10 +269,6 @@
   .finding.suggestion { --sev-color: var(--suggestion); }
 
   .finding-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
-  .tag { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 9px; border-radius: 4px; }
-  .tag.sev { background: var(--sev-color, var(--border)); color: var(--surface); }
-  .tag.cat { background: var(--surface-2); color: var(--ink-muted); border: 1px solid var(--border); font-weight: 600; }
-  .tag.effort { background: transparent; color: var(--ink-faint); border: 1px dashed var(--border); font-weight: 600; }
 
   .finding h3 { font-size: 19px; font-weight: 600; margin-bottom: 8px; }
   .finding p { margin: 0 0 10px; color: var(--ink); font-size: 15px; }
@@ -222,7 +276,7 @@
   .finding p.muted { color: var(--ink-muted); font-size: 14px; }
 
   .evidence {
-    margin-top: 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px;
+    margin-top: 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
     padding: 14px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.7;
     overflow-x: auto; color: var(--ink);
   }
@@ -232,7 +286,7 @@
 
   /* ---------- Step-by-step fix block (one per finding — required, not optional) ---------- */
 
-  .howto { margin-top: 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+  .howto { margin-top: 16px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
   .howto summary {
     cursor: pointer; padding: 11px 14px; font-size: 13px; font-weight: 600; color: var(--accent);
     list-style: none; display: flex; align-items: center; gap: 10px; user-select: none;
@@ -261,7 +315,7 @@
 
   /* Content fixes only: current-vs-suggested copy block inside .howto, before .verify */
   .rewrite { margin: 0 16px 14px; display: grid; gap: 8px; }
-  .rewrite .current, .rewrite .suggested { padding: 10px 12px; border-radius: 6px; font-size: 13px; line-height: 1.6; }
+  .rewrite .current, .rewrite .suggested { padding: 10px 12px; border-radius: 8px; font-size: 13px; line-height: 1.6; }
   .rewrite .current { background: var(--surface-2); color: var(--ink-muted); border: 1px dashed var(--border); }
   .rewrite .suggested { background: var(--accent-soft); color: var(--ink); border: 1px solid var(--accent); }
   .rewrite .label { display: block; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
@@ -273,7 +327,7 @@
   .fix-ref code { color: var(--accent); background: var(--accent-soft); padding: 3px 8px; border-radius: 4px; }
 
   .verify-note {
-    margin-top: 14px; border: 1px dashed var(--border); border-radius: 8px;
+    margin-top: 14px; border: 1px dashed var(--border); border-radius: 10px;
     padding: 12px 14px; font-size: 13px; color: var(--ink-muted);
   }
   .verify-note .label { color: var(--ink); font-weight: 600; }
@@ -281,7 +335,7 @@
   /* ---------- Working well ---------- */
 
   .pass-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
-  .pass-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; padding: 12px 14px; background: var(--good-soft); border-radius: 8px; }
+  .pass-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; padding: 12px 14px; background: var(--good-soft); border-radius: 10px; }
   .pass-list .mark {
     flex: none; width: 18px; height: 18px; border-radius: 50%; background: var(--good); color: var(--surface);
     display: flex; align-items: center; justify-content: center; font-size: 11px; margin-top: 1px;
@@ -319,6 +373,8 @@
     .pass-list { grid-template-columns: 1fr; }
     .report-header h1 { font-size: 30px; }
     .stat-tiles { grid-template-columns: repeat(2, 1fr); }
+    .cat-row { grid-template-columns: 1fr; row-gap: 6px; }
+    .cat-row .cat-total { text-align: left; }
   }
 </style>
 
@@ -364,18 +420,33 @@
       <div class="stat-group">
         <h3>Lighthouse scores</h3>
         <div class="stat-tiles">
-          <div class="stat-tile good"><div class="num">{{00}}</div><div class="name">Performance</div></div>
-          <div class="stat-tile good"><div class="num">{{00}}</div><div class="name">SEO</div></div>
-          <div class="stat-tile good"><div class="num">{{00}}</div><div class="name">Best Practices</div></div>
-          <div class="stat-tile warn"><div class="num">{{00}}</div><div class="name">Accessibility</div></div>
+          <!-- bar-fill width = the real score, 0-100. Recolor the tile (good/warn/bad) by the
+               same score: ≥90 good, 50-89 warn, <50 bad — Lighthouse's own thresholds. -->
+          <div class="stat-tile good">
+            <div class="num">{{00}}</div><div class="name">Performance</div>
+            <div class="bar-track"><div class="bar-fill" style="width: {{00}}%"></div></div>
+          </div>
+          <div class="stat-tile good">
+            <div class="num">{{00}}</div><div class="name">SEO</div>
+            <div class="bar-track"><div class="bar-fill" style="width: {{00}}%"></div></div>
+          </div>
+          <div class="stat-tile good">
+            <div class="num">{{00}}</div><div class="name">Best Practices</div>
+            <div class="bar-track"><div class="bar-fill" style="width: {{00}}%"></div></div>
+          </div>
+          <div class="stat-tile warn">
+            <div class="num">{{00}}</div><div class="name">Accessibility</div>
+            <div class="bar-track"><div class="bar-fill" style="width: {{00}}%"></div></div>
+          </div>
         </div>
       </div>
       <div class="stat-group">
         <h3>Core Web Vitals</h3>
         <div class="stat-tiles">
-          <div class="stat-tile good"><div class="num">{{0.00}}<small>s</small></div><div class="name">LCP</div></div>
-          <div class="stat-tile good"><div class="num">{{0.00}}</div><div class="name">CLS</div></div>
-          <div class="stat-tile good"><div class="num">{{00}}<small>ms</small></div><div class="name">Total Blocking Time</div></div>
+          <!-- .qual label from real thresholds only (see CSS comment above) — never guess one -->
+          <div class="stat-tile good"><div class="num">{{0.00}}<small>s</small></div><div class="name">LCP</div><span class="qual">Good</span></div>
+          <div class="stat-tile good"><div class="num">{{0.00}}</div><div class="name">CLS</div><span class="qual">Good</span></div>
+          <div class="stat-tile good"><div class="num">{{00}}<small>ms</small></div><div class="name">Total Blocking Time</div><span class="qual">Good</span></div>
           <div class="stat-tile good"><div class="num">{{000}}<small>ms</small></div><div class="name">Server Response</div></div>
         </div>
       </div>
@@ -388,6 +459,38 @@
       <div class="sev-tile medium"><div class="count">{{n}}</div><div class="lbl">Medium</div></div>
       <div class="sev-tile low"><div class="count">{{n}}</div><div class="lbl">Low</div></div>
       <div class="sev-tile suggestion"><div class="count">{{n}}</div><div class="lbl">Suggestion</div></div>
+    </div>
+
+    <!-- Findings by category, stacked by severity. One row per category with ≥1 finding, built
+         from the real issue-tracker.md counts — omit empty categories, don't pad the chart. -->
+    <div class="category-chart">
+      <h3>Findings by category</h3>
+
+      <div class="cat-row">
+        <span class="cat-name">{{Indexability}}</span>
+        <div class="cat-bar">
+          <span style="width: {{00}}%; background: var(--critical)"></span>
+          <span style="width: {{00}}%; background: var(--high)"></span>
+          <span style="width: {{00}}%; background: var(--medium)"></span>
+        </div>
+        <span class="cat-total">{{n}}</span>
+      </div>
+      <div class="cat-row">
+        <span class="cat-name">{{Site Architecture}}</span>
+        <div class="cat-bar">
+          <span style="width: {{00}}%; background: var(--critical)"></span>
+          <span style="width: {{00}}%; background: var(--good)"></span>
+        </div>
+        <span class="cat-total">{{n}}</span>
+      </div>
+
+      <div class="chart-legend">
+        <span><span class="dot" style="background: var(--critical)"></span>Critical</span>
+        <span><span class="dot" style="background: var(--high)"></span>High</span>
+        <span><span class="dot" style="background: var(--medium)"></span>Medium</span>
+        <span><span class="dot" style="background: var(--good)"></span>Low</span>
+        <span><span class="dot" style="background: var(--suggestion)"></span>Suggestion</span>
+      </div>
     </div>
   </section>
 
