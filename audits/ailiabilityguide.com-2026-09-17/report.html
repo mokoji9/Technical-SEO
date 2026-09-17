@@ -141,12 +141,12 @@
   /* ---------- Stat tiles ---------- */
 
   .stat-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 32px; }
-  .stat-group { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .stat-group { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
   .stat-group h3 {
     font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; font-weight: 600;
     text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin-bottom: 16px;
   }
-  .stat-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 10px; }
+  .stat-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 14px; }
   .stat-tile .num {
     font-family: 'Newsreader', serif; font-size: 30px; font-weight: 600;
     font-variant-numeric: tabular-nums; line-height: 1;
@@ -157,9 +157,15 @@
   .stat-tile.warn .num { color: var(--high); }
   .stat-tile.bad .num { color: var(--critical); }
 
+  /* Score bars: width = the real 0-100 score, only used on 0-100 metrics */
+  .stat-tile .bar-track { margin-top: 9px; height: 5px; border-radius: 3px; background: var(--surface-2); overflow: hidden; }
+  .stat-tile .bar-fill { height: 100%; border-radius: 3px; background: var(--good); }
+  .stat-tile.warn .bar-fill { background: var(--high); }
+  .stat-tile.bad .bar-fill { background: var(--critical); }
+
   /* ---------- Indexing bar ---------- */
 
-  .index-bar-wrap { margin-top: 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; }
+  .index-bar-wrap { margin-top: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; }
   .index-bar-wrap h3 {
     font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; font-weight: 600;
     text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin-bottom: 16px;
@@ -174,8 +180,8 @@
 
   /* ---------- Severity summary strip ---------- */
 
-  .severity-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 32px; }
-  .sev-tile { border-radius: 10px; padding: 16px 14px; border: 1px solid var(--border); }
+  .severity-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 16px; }
+  .sev-tile { border-radius: 12px; padding: 16px 14px; border: 1px solid var(--border); }
   .sev-tile .count { font-family: 'Newsreader', serif; font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; }
   .sev-tile .lbl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
   .sev-tile.critical { background: var(--critical-soft); }
@@ -189,12 +195,28 @@
   .sev-tile.suggestion { background: var(--suggestion-soft); }
   .sev-tile.suggestion .count, .sev-tile.suggestion .lbl { color: var(--suggestion); }
 
+  /* ---------- Findings-by-category chart ---------- */
+
+  .category-chart { margin-top: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; }
+  .category-chart h3 {
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin-bottom: 18px;
+  }
+  .cat-row { display: grid; grid-template-columns: minmax(120px, 170px) 1fr 28px; align-items: center; gap: 14px; padding: 8px 0; }
+  .cat-row + .cat-row { border-top: 1px solid var(--border); }
+  .cat-row .cat-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+  .cat-row .cat-bar { display: flex; height: 10px; border-radius: 5px; overflow: hidden; background: var(--surface-2); }
+  .cat-row .cat-bar span { height: 100%; }
+  .cat-row .cat-total { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-faint); text-align: right; font-variant-numeric: tabular-nums; }
+  .chart-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-muted); }
+  .chart-legend .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+
   /* ---------- Finding cards ---------- */
 
   .findings-list { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
   .finding {
     background: var(--surface); border: 1px solid var(--border);
-    border-left: 4px solid var(--sev-color, var(--border)); border-radius: 10px;
+    border-left: 3px solid var(--sev-color, var(--border)); border-radius: 14px;
     padding: 22px 24px; box-shadow: var(--shadow);
   }
   .finding.critical { --sev-color: var(--critical); }
@@ -204,8 +226,13 @@
   .finding.suggestion { --sev-color: var(--suggestion); }
 
   .finding-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
-  .tag { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 9px; border-radius: 4px; }
+  .tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 5px 11px; border-radius: 999px; line-height: 1;
+  }
   .tag.sev { background: var(--sev-color, var(--border)); color: var(--surface); }
+  .tag.sev::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.9; }
   .tag.cat { background: var(--surface-2); color: var(--ink-muted); border: 1px solid var(--border); font-weight: 600; }
   .tag.effort { background: transparent; color: var(--ink-faint); border: 1px dashed var(--border); font-weight: 600; }
   .tag.new { background: var(--accent); color: var(--accent-ink); }
@@ -216,7 +243,7 @@
   .finding p.muted { color: var(--ink-muted); font-size: 14px; }
 
   .evidence {
-    margin-top: 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px;
+    margin-top: 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
     padding: 14px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.7;
     overflow-x: auto; color: var(--ink);
   }
@@ -385,16 +412,31 @@
       <div class="stat-group">
         <h3>Lighthouse scores</h3>
         <div class="stat-tiles">
-          <div class="stat-tile good"><div class="num">100</div><div class="name">Performance</div></div>
-          <div class="stat-tile good"><div class="num">100</div><div class="name">SEO</div></div>
-          <div class="stat-tile warn"><div class="num">77</div><div class="name">Best Practices</div></div>
-          <div class="stat-tile good"><div class="num">100</div><div class="name">Accessibility</div></div>
+          <div class="stat-tile good">
+            <div class="num">100</div><div class="name">Performance</div>
+            <div class="bar-track"><div class="bar-fill" style="width: 100%"></div></div>
+          </div>
+          <div class="stat-tile good">
+            <div class="num">100</div><div class="name">SEO</div>
+            <div class="bar-track"><div class="bar-fill" style="width: 100%"></div></div>
+          </div>
+          <div class="stat-tile warn">
+            <div class="num">77</div><div class="name">Best Practices</div>
+            <div class="bar-track"><div class="bar-fill" style="width: 77%"></div></div>
+          </div>
+          <div class="stat-tile good">
+            <div class="num">100</div><div class="name">Accessibility</div>
+            <div class="bar-track"><div class="bar-fill" style="width: 100%"></div></div>
+          </div>
         </div>
       </div>
       <div class="stat-group">
         <h3>Ahrefs site audit</h3>
         <div class="stat-tiles">
-          <div class="stat-tile good"><div class="num">99<small>%</small></div><div class="name">Health score</div></div>
+          <div class="stat-tile good">
+            <div class="num">99<small>%</small></div><div class="name">Health score</div>
+            <div class="bar-track"><div class="bar-fill" style="width: 99%"></div></div>
+          </div>
           <div class="stat-tile bad"><div class="num">16</div><div class="name">Weakly-linked pages</div></div>
           <div class="stat-tile bad"><div class="num">39</div><div class="name">No meta description</div></div>
           <div class="stat-tile warn"><div class="num">96</div><div class="name">Title too long</div></div>
@@ -439,6 +481,55 @@
       <div class="sev-tile medium"><div class="count">3</div><div class="lbl">Medium</div></div>
       <div class="sev-tile low"><div class="count">1</div><div class="lbl">Low</div></div>
       <div class="sev-tile suggestion"><div class="count">2</div><div class="lbl">Suggestion</div></div>
+    </div>
+
+    <div class="category-chart">
+      <h3>Findings by category</h3>
+      <div class="cat-row">
+        <span class="cat-name">Indexability</span>
+        <div class="cat-bar">
+          <span style="width: 20%; background: var(--critical)"></span>
+          <span style="width: 60%; background: var(--high)"></span>
+          <span style="width: 20%; background: var(--suggestion)"></span>
+        </div>
+        <span class="cat-total">5</span>
+      </div>
+      <div class="cat-row">
+        <span class="cat-name">Site Architecture</span>
+        <div class="cat-bar">
+          <span style="width: 33%; background: var(--critical)"></span>
+          <span style="width: 33%; background: var(--medium)"></span>
+          <span style="width: 34%; background: var(--good)"></span>
+        </div>
+        <span class="cat-total">3</span>
+      </div>
+      <div class="cat-row">
+        <span class="cat-name">Structured Data</span>
+        <div class="cat-bar"><span style="width: 100%; background: var(--medium)"></span></div>
+        <span class="cat-total">2</span>
+      </div>
+      <div class="cat-row">
+        <span class="cat-name">Crawlability</span>
+        <div class="cat-bar"><span style="width: 100%; background: var(--critical)"></span></div>
+        <span class="cat-total">1</span>
+      </div>
+      <div class="cat-row">
+        <span class="cat-name">Security &amp; Intl</span>
+        <div class="cat-bar"><span style="width: 100%; background: var(--high)"></span></div>
+        <span class="cat-total">1</span>
+      </div>
+      <div class="cat-row">
+        <span class="cat-name">Content quality</span>
+        <div class="cat-bar"><span style="width: 100%; background: var(--suggestion)"></span></div>
+        <span class="cat-total">1</span>
+      </div>
+      <div class="chart-legend">
+        <span><span class="dot" style="background: var(--critical)"></span>Critical</span>
+        <span><span class="dot" style="background: var(--high)"></span>High</span>
+        <span><span class="dot" style="background: var(--medium)"></span>Medium</span>
+        <span><span class="dot" style="background: var(--good)"></span>Low</span>
+        <span><span class="dot" style="background: var(--suggestion)"></span>Suggestion</span>
+      </div>
     </div>
   </section>
 
