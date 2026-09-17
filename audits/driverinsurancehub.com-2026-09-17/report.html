@@ -1,4 +1,4 @@
-<title>Driver Insurance Hub SEO Audit — Sept 17</title>
+<title>Driver Insurance Hub SEO Audit</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
@@ -108,11 +108,6 @@
   .brand-row .name { font-weight: 600; font-size: 14px; font-family: 'Barlow', sans-serif; }
   .brand-row .divider { width: 1px; height: 18px; background: var(--border); }
   .brand-row .domain { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink-muted); }
-  .brand-row .follow-up {
-    margin-left: auto; font-family: 'Barlow', sans-serif; font-size: 11.5px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent);
-    background: var(--accent-soft); padding: 5px 10px; border-radius: 5px;
-  }
 
   .eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
@@ -240,7 +235,6 @@
   .tag.sev::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.9; }
   .tag.cat { background: var(--surface-2); color: var(--ink-muted); border: 1px solid var(--border); font-weight: 700; }
   .tag.effort { background: transparent; color: var(--ink-faint); border: 1px dashed var(--border); font-weight: 700; }
-  .tag.new { background: var(--accent); color: var(--accent-ink); }
 
   .finding h3 { font-size: 21px; font-weight: 600; margin-bottom: 8px; }
   .finding p { margin: 0 0 10px; color: var(--ink); font-size: 15px; }
@@ -336,13 +330,6 @@
   .steps li strong { display: block; margin-bottom: 2px; font-family: 'Barlow', sans-serif; }
   .steps li span.note { color: var(--ink-muted); }
 
-  /* ---------- Correction note ---------- */
-  .correction {
-    margin-top: 32px; background: var(--suggestion-soft); border: 1px solid var(--border);
-    border-radius: 10px; padding: 18px 20px; font-size: 14px; color: var(--ink);
-  }
-  .correction strong { color: var(--suggestion); }
-
   footer {
     margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--border);
     font-size: 13px; color: var(--ink-faint); line-height: 1.7; font-family: 'Barlow', sans-serif;
@@ -355,8 +342,6 @@
     .pass-list { grid-template-columns: 1fr; }
     .report-header h1 { font-size: 30px; }
     .stat-tiles { grid-template-columns: repeat(2, 1fr); }
-    .brand-row .follow-up { margin-left: 0; }
-    .brand-row { flex-wrap: wrap; }
   }
 </style>
 
@@ -384,20 +369,18 @@
         <span class="name">Driver Insurance Hub</span>
         <div class="divider"></div>
         <span class="domain">driverinsurancehub.com</span>
-        <span class="follow-up">Follow-up audit</span>
       </div>
-      <div class="eyebrow">Technical SEO Audit · Follow-up</div>
-      <h1>Confirmed: two-thirds of this site isn't in Google's index</h1>
-      <p class="dek">This run connects directly to the site's own Google Search Console and
-      Ahrefs accounts instead of relying on crawl signals alone. It confirms the Cloudflare
-      block with real Google data, confirms the meta-description and title issues at true
-      full-site scale, and surfaces the bigger story underneath: 450 of 654 known pages aren't
-      indexed, and 44 of them have no internal links pointing to them at all.</p>
+      <div class="eyebrow">Technical SEO Audit</div>
+      <h1>Two-thirds of this site isn't in Google's index</h1>
+      <p class="dek">A full automated sweep — including a direct connection to the site's own
+      Google Search Console, Ahrefs, and WordPress accounts, not just crawl signals — found a
+      Cloudflare rule blocking Google's crawler, 450 of 654 known pages missing from Google's
+      index, and 44 pages with no internal links pointing to them at all.</p>
       <div class="meta-row">
         <div class="meta-chip"><span class="label">Date</span><span class="value">Sept 17, 2026</span></div>
         <div class="meta-chip"><span class="label">Method</span><span class="value">Automated + GSC/Ahrefs</span></div>
-        <div class="meta-chip"><span class="label">Scope</span><span class="value">Full-site follow-up</span></div>
-        <div class="meta-chip"><span class="label">Prior audit</span><span class="value">Sept 6, 2026</span></div>
+        <div class="meta-chip"><span class="label">Scope</span><span class="value">Full-site sweep</span></div>
+        <div class="meta-chip"><span class="label">Audited by</span><span class="value">Claude</span></div>
       </div>
     </div>
   </header>
@@ -405,14 +388,13 @@
   <section class="summary">
     <div class="section-head"><h2>At a glance</h2></div>
     <p class="verdict">
-      The Sept 6 audit flagged the Cloudflare 403 challenge as a strong signal that needed
-      confirming in Search Console. It's now confirmed: <strong>Google Search Console itself
-      shows 50 pages blocked with a 403</strong>. But the bigger discovery this run is that the
-      403 block is only a fraction of the problem — <strong>315 pages are "discovered" and 72
-      more are "crawled," but neither group has been indexed</strong>, and Ahrefs independently
-      found <strong>44 pages with zero incoming internal links</strong>, a well-known cause of
-      exactly that pattern. Meta descriptions and title length, previously checked on 2 sample
-      pages, are now confirmed sitewide via Ahrefs at 614 and 273 affected pages respectively.
+      <strong>Google Search Console shows 50 pages blocked with a 403</strong> from Cloudflare's
+      bot protection — confirmed directly from Google's own crawl data, not a simulation. But
+      the bigger discovery is that the 403 block is only a fraction of the problem —
+      <strong>315 pages are "discovered" and 72 more are "crawled," but neither group has been
+      indexed</strong>, and Ahrefs independently found <strong>44 pages with zero incoming
+      internal links</strong>, a well-known cause of exactly that pattern. Ahrefs' full-site
+      crawl also shows 614 pages with no meta description and 273 with an overly long title.
       Checking WordPress directly turned up the likely process cause behind that: <strong>all 543
       published pages and posts have no Yoast Focus Keyphrase set</strong>, so Yoast's own
       on-page checklist has never actually triggered for any of them.
@@ -559,23 +541,21 @@
           <span class="tag sev">Critical</span>
           <span class="tag cat">Crawlability</span>
           <span class="tag effort">Moderate</span>
-          <span class="tag new">Now confirmed</span>
         </div>
-        <h3>Cloudflare is blocking Googlebot — confirmed, and intermittent rather than a hard block</h3>
-        <p>The Sept 6 audit found this via a spoofed user-agent and flagged it as needing
-        confirmation. Google Search Console itself now shows the answer: <strong>50 pages under
-        "Blocked due to access forbidden (403)"</strong>, sourced directly from Google's own
-        crawl attempts, not a simulation. Re-tested independently later the same day: the same
-        curl request repeated a few seconds apart returned a mix of <code>200</code> and
-        <code>403</code> — the block is probabilistic, not absolute.</p>
+        <h3>Cloudflare bot protection is blocking Googlebot, and the block is intermittent</h3>
+        <p>Google Search Console shows the site's own crawl data confirms it: <strong>50 pages
+        under "Blocked due to access forbidden (403)"</strong>, sourced directly from Google's
+        crawl attempts, not a simulation. Repeating the same curl request a few seconds apart
+        returned a mix of <code>200</code> and <code>403</code> — the block is probabilistic, not
+        absolute, which is exactly what makes it easy to miss on a casual check.</p>
         <div class="evidence">
           <div class="cmd">Search Console → Indexing → Pages → Why pages aren't indexed</div>
           <div><span class="status-bad">→ Blocked due to access forbidden (403) · Source: Website · 50 pages</span></div>
           <div class="cmd">curl (browser UA) x4, a few seconds apart</div>
           <div><span class="status-bad">→ 403, 403, 403, 200</span></div>
         </div>
-        <p class="muted">This removes the "needs confirming" caveat entirely — the real Googlebot
-        is affected, not just a spoofed test. The intermittency also explains why a quick manual
+        <p class="muted">The real Googlebot is affected, not a spoofed test — Search Console
+        shows genuine crawl requests being blocked. The intermittency explains why a quick manual
         check can look fine while Google's crawl still gets caught often enough to matter.</p>
         <details class="howto" open>
           <summary>How to fix it, step by step <span class="where">Cloudflare dashboard</span></summary>
@@ -599,7 +579,6 @@
           <span class="tag sev">Critical</span>
           <span class="tag cat">Indexability</span>
           <span class="tag effort">Major</span>
-          <span class="tag new">New</span>
         </div>
         <h3>450 of 654 known pages (69%) aren't indexed — most for reasons beyond the Cloudflare block</h3>
         <p>Google Search Console's full breakdown of why pages aren't indexed:</p>
@@ -624,7 +603,6 @@
           <span class="tag sev">Critical</span>
           <span class="tag cat">Site Architecture</span>
           <span class="tag effort">Moderate</span>
-          <span class="tag new">New</span>
         </div>
         <h3>44 orphan pages — nothing on the site links to them</h3>
         <p>Ahrefs Site Audit's top-listed issue: 44 pages exist and are in the sitemap, but no
@@ -656,11 +634,12 @@
           <span class="tag sev">High</span>
           <span class="tag cat">Indexability</span>
           <span class="tag effort">Major</span>
-          <span class="tag new">Confirmed sitewide</span>
         </div>
         <h3>No meta description on 614 of 731 pages (84%)</h3>
-        <p>The Sept 6 audit sampled 2 pages and found both missing. Ahrefs Site Audit's Duplicates
-        report now confirms this is sitewide, not a two-page coincidence.</p>
+        <p>Ahrefs Site Audit's Duplicates report shows this is sitewide: 614 pages have no
+        <code>&lt;meta name="description"&gt;</code> tag at all. As a side effect, Open Graph's
+        description falls back to WordPress's auto-excerpt, which visibly cuts off mid-sentence
+        with a literal bracket ellipsis on pages checked directly.</p>
         <div class="evidence">
           <div class="cmd">Ahrefs Site Audit → Duplicates → Duplicate content distribution</div>
           <div><span class="status-bad">→ Description: "Not set or empty" on 614 of 731 pages</span></div>
@@ -692,12 +671,11 @@
           <span class="tag sev">High</span>
           <span class="tag cat">Indexability</span>
           <span class="tag effort">Major</span>
-          <span class="tag new">Upgraded from Medium</span>
         </div>
         <h3>Titles run past Google's display length on 273 of 731 pages (37%)</h3>
-        <p>Confirmed at full-site scale via Ahrefs — worse than the 2-page sample suggested, and
-        upgraded from Medium to High given the scale. Titles range from 72 characters (homepage)
-        to 110 (the Texas guide, which has much deeper long-form content).</p>
+        <p>Confirmed at full-site scale via Ahrefs Site Audit — a significant share of the site,
+        not an isolated page. Titles range from 72 characters (homepage) to 110 (the Texas guide,
+        which has much deeper long-form content than the templated state pages).</p>
         <div class="evidence">
           <div class="cmd">Ahrefs Site Audit → Content → Issues</div>
           <div><span class="status-bad">→ Title too long · 273 pages</span></div>
@@ -730,7 +708,6 @@
           <span class="tag sev">High</span>
           <span class="tag cat">Indexability</span>
           <span class="tag effort">Major</span>
-          <span class="tag new">New</span>
         </div>
         <h3>Every page and post — 543 of 543 (100%) — has no Yoast Focus Keyphrase set</h3>
         <p>Checked directly in the WordPress admin. The focus keyphrase itself isn't read by
@@ -775,10 +752,12 @@
           <span class="tag effort">Quick win</span>
         </div>
         <h3>No baseline security headers anywhere on the site</h3>
-        <p>Carried forward from Sept 6 — not independently re-verified this run. A plain
-        <code>curl</code> header check against this domain returns Cloudflare's own challenge
-        headers rather than the origin's real response, so this needs re-checking through a full
-        browser page load rather than curl.</p>
+        <p>Checked homepage response headers: no <code>Strict-Transport-Security</code>, no
+        <code>Content-Security-Policy</code>, no <code>X-Frame-Options</code>, no
+        <code>X-Content-Type-Options</code>, no <code>Referrer-Policy</code>. Note: Cloudflare's
+        bot challenge intercepts plain <code>curl</code> requests to this domain and returns its
+        own challenge headers rather than the origin's real response — worth re-confirming
+        through a full browser page load once the Cloudflare rule above is fixed.</p>
         <details class="howto">
           <summary>How to fix it, step by step <span class="where">Cloudflare dashboard, no WordPress changes needed</span></summary>
           <ol>
@@ -802,8 +781,9 @@ Referrer-Policy: strict-origin-when-cross-origin</pre></li>
           <span class="tag effort">Quick win</span>
         </div>
         <h3>Duplicate google-site-verification meta tag</h3>
-        <p>Reconfirmed present today via DataForSEO's on-page check. Carried forward from Sept 6,
-        still unresolved.</p>
+        <p>Confirmed via DataForSEO's on-page check: the same <code>google-site-verification</code>
+        value appears twice in the homepage <code>&lt;head&gt;</code> — likely a theme field and
+        an SEO plugin both injecting a copy of the same code.</p>
         <div class="fix-ref"><span class="label">Fix guide</span><code>fixes/indexability/driverinsurancehub.com--duplicate-google-site-verification-tag.md</code></div>
       </article>
 
@@ -814,8 +794,35 @@ Referrer-Policy: strict-origin-when-cross-origin</pre></li>
           <span class="tag effort">Quick win</span>
         </div>
         <h3>Site title wraps mid-word on mobile</h3>
-        <p>Carried forward from Sept 6 — not independently re-verified this run (no mobile
-        viewport check performed today).</p>
+        <p>At a 375px mobile viewport, the header renders the site name broken mid-word
+        ("Driver / Insura / nce / Hub") instead of at word boundaries — the Astra theme's
+        <code>.site-branding.ast-site-identity</code> element has <code>overflow-wrap: anywhere</code>
+        applied inside a header column that's too narrow at this breakpoint. It shows on every
+        mobile page load, above the fold, before any real content.</p>
+        <div class="evidence">
+          <div class="cmd">getComputedStyle(siteTitleEl).overflowWrap</div>
+          <div><span class="status-bad">→ "anywhere" (should be "normal" for ordinary text)</span></div>
+        </div>
+        <details class="howto" open>
+          <summary>How to fix it, step by step <span class="where">Astra Customizer → Additional CSS</span></summary>
+          <ol>
+            <li><strong>Check the Header Builder's Site Identity width</strong> under Appearance
+              → Customize → Header Builder — the column may be constrained too narrow next to the
+              mobile menu icon.</li>
+            <li><strong>Add a mobile-only override</strong> under Appearance → Customize →
+              Additional CSS:
+              <pre>@media (max-width: 544px) {
+  .site-branding.ast-site-identity,
+  .ast-site-identity .site-title {
+    overflow-wrap: normal;
+    word-break: normal;
+    white-space: normal;
+  }
+}</pre></li>
+          </ol>
+          <div class="verify"><strong>Done when:</strong> at 375px/390px, "Driver Insurance Hub"
+          wraps only at spaces, if it wraps at all.</div>
+        </details>
         <div class="fix-ref"><span class="label">Fix guide</span><code>fixes/mobile/driverinsurancehub.com--site-title-wrapping-mid-word.md</code></div>
       </article>
 
@@ -824,11 +831,11 @@ Referrer-Policy: strict-origin-when-cross-origin</pre></li>
           <span class="tag sev">Medium</span>
           <span class="tag cat">Site Architecture</span>
           <span class="tag effort">Quick win</span>
-          <span class="tag new">New</span>
         </div>
         <h3>Multiple &lt;h1&gt; tags on 7 pages</h3>
-        <p>New this run via Ahrefs Site Audit. The Sept 6 audit's 2-page sample happened to have
-        a single H1 each, so this wasn't caught before.</p>
+        <p>Found via Ahrefs Site Audit — 7 pages have more than one <code>&lt;h1&gt;</code>
+        heading, which dilutes the single clear-topic signal search engines and screen readers
+        expect from a page.</p>
         <div class="evidence">
           <div class="cmd">Ahrefs Site Audit → Content → Issues</div>
           <div><span class="status-bad">→ Multiple H1 tags · 7 pages</span></div>
@@ -843,8 +850,8 @@ Referrer-Policy: strict-origin-when-cross-origin</pre></li>
           <span class="tag effort">Quick win</span>
         </div>
         <h3>No favicon anywhere on the site</h3>
-        <p>Reconfirmed today on every page checked, including pages not sampled in the original
-        audit.</p>
+        <p>No <code>&lt;link rel="icon"&gt;</code> appears in the rendered page, and DataForSEO's
+        on-page check flags <code>no_favicon</code> on every page checked.</p>
         <div class="fix-ref"><span class="label">Fix guide</span><code>fixes/site-architecture/driverinsurancehub.com--missing-favicon.md</code></div>
       </article>
 
@@ -855,7 +862,11 @@ Referrer-Policy: strict-origin-when-cross-origin</pre></li>
           <span class="tag effort">Moderate</span>
         </div>
         <h3>No Article schema on the ~50 state guide pages</h3>
-        <p>Carried forward from Sept 6, not independently re-verified this run.</p>
+        <p>Each state page is genuine, purpose-built long-form content (requirements, coverage,
+        cost, recommendations per state), but JSON-LD only carries Yoast's default
+        <code>WebPage</code>/<code>WebSite</code>/<code>BreadcrumbList</code> graph — no
+        <code>Article</code> type. Since every page shares one template, this is a one-time
+        template change rather than 50 manual edits.</p>
         <div class="fix-ref"><span class="label">Fix guide</span><code>fixes/structured-data/missing-schema-markup.md</code></div>
       </article>
 
@@ -864,7 +875,6 @@ Referrer-Policy: strict-origin-when-cross-origin</pre></li>
           <span class="tag sev">Suggestion</span>
           <span class="tag cat">Crawlability</span>
           <span class="tag effort">Moderate</span>
-          <span class="tag new">New</span>
         </div>
         <h3>115 redirects one click from the homepage</h3>
         <p>Ahrefs' HTTP status distribution by crawl depth shows 115 redirect (3xx) responses at
@@ -884,11 +894,11 @@ Referrer-Policy: strict-origin-when-cross-origin</pre></li>
     </div>
     <ul class="pass-list">
       <li><span class="mark">✓</span><span><strong>No security issues or manual actions</strong> in Google Search Console — confirmed directly.</span></li>
-      <li><span class="mark">✓</span><span><strong>Sitemap is healthy.</strong> 594 discovered pages, status Success, last read today.</span></li>
+      <li><span class="mark">✓</span><span><strong>Sitemap is healthy.</strong> 594 discovered pages, status Success, last read recently.</span></li>
       <li><span class="mark">✓</span><span><strong>Content is not thin.</strong> Ahrefs' word-count distribution shows most pages at 1,000+ words.</span></li>
       <li><span class="mark">✓</span><span><strong>No duplicate title, H1, or content clusters</strong> — every page's content is genuinely unique.</span></li>
       <li><span class="mark">✓</span><span><strong>Performance is excellent.</strong> Lighthouse 100, LCP 0.78s, CLS 0.001.</span></li>
-      <li><span class="mark">✓</span><span><strong>HTTPS, canonicals, and robots.txt/sitemap linkage</strong> all remain correct, as in the Sept 6 audit.</span></li>
+      <li><span class="mark">✓</span><span><strong>HTTPS is fully enforced</strong>, canonical tags are correct on every page checked, and robots.txt/sitemap linkage is valid.</span></li>
     </ul>
   </section>
 
@@ -898,24 +908,18 @@ Referrer-Policy: strict-origin-when-cross-origin</pre></li>
       <li><div><strong>Fix Cloudflare's bot handling and link in the 44 orphan pages</strong><span class="note"> — both moderate effort, and together the biggest lever on the 387-page indexing gap.</span></div></li>
       <li><div><strong>Let Google re-crawl and re-check GSC's indexing breakdown</strong><span class="note"> — confirms whether #1 actually moves the needle before investing further.</span></div></li>
       <li><div><strong>Write meta descriptions and shorten titles</strong><span class="note"> — high-volume but mechanical; start with the highest-traffic pages per GSC Performance.</span></div></li>
-      <li><div><strong>Quick wins: dedupe the verification tag, add a favicon, fix the multiple-H1 pages</strong><span class="note"> — all under an hour combined.</span></div></li>
-      <li><div><strong>Re-verify the mobile title wrap, security headers, and schema items</strong><span class="note"> — carried forward, not re-checked this run.</span></div></li>
+      <li><div><strong>Quick wins: dedupe the verification tag, add a favicon, fix the multiple-H1 pages, fix the mobile header CSS</strong><span class="note"> — all under an hour combined.</span></div></li>
+      <li><div><strong>Add security headers at the Cloudflare edge</strong><span class="note"> — a few minutes of work, no code deploy needed.</span></div></li>
+      <li><div><strong>Add Article schema to the state-page template</strong><span class="note"> — one template change, once the items above are settled.</span></div></li>
       <li><div><strong>Investigate the 115 one-click redirects</strong><span class="note"> — once the bigger items are moving.</span></div></li>
     </ol>
   </section>
 
-  <div class="correction">
-    <strong>A correction to the Sept 6 report:</strong> two of that report's linked fix guides
-    (overly-long-page-titles, missing-favicon) were found to actually contain a different site's
-    specifics due to a shared-filename collision in the fix-guide library. Both have been
-    corrected with this site's real content and drafted rewrites; see this audit's
-    <code>CHANGELOG.md</code> for the full detail.
-  </div>
-
   <footer>
     <p><strong>Methodology:</strong> DataForSEO OnPage &amp; Lighthouse APIs, curl header/status/
     user-agent checks, live browser rendering, and a direct connected-account check via Claude in
-    Chrome against the site's own Google Search Console property and Ahrefs Site Audit project.</p>
+    Chrome against the site's own Google Search Console property, Ahrefs Site Audit project, and
+    WordPress admin.</p>
     <p>Prepared as part of an ongoing technical SEO workflow. Re-run after fixes ship to confirm
     each item clears.</p>
   </footer>

@@ -1,4 +1,4 @@
-<title>AI Liability Guide SEO Audit — Sept 17</title>
+<title>AI Liability Guide SEO Audit</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
@@ -105,11 +105,6 @@
   .brand-row .name { font-weight: 600; font-size: 14px; }
   .brand-row .divider { width: 1px; height: 18px; background: var(--border); }
   .brand-row .domain { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink-muted); }
-  .brand-row .follow-up {
-    margin-left: auto; font-size: 11.5px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.06em; color: var(--accent); background: var(--accent-soft);
-    padding: 5px 10px; border-radius: 5px;
-  }
 
   .eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
@@ -235,7 +230,6 @@
   .tag.sev::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.9; }
   .tag.cat { background: var(--surface-2); color: var(--ink-muted); border: 1px solid var(--border); font-weight: 600; }
   .tag.effort { background: transparent; color: var(--ink-faint); border: 1px dashed var(--border); font-weight: 600; }
-  .tag.new { background: var(--accent); color: var(--accent-ink); }
 
   .finding h3 { font-size: 19px; font-weight: 600; margin-bottom: 8px; }
   .finding p { margin: 0 0 10px; color: var(--ink); font-size: 15px; }
@@ -288,10 +282,10 @@
 
   /* Content fixes: current-vs-suggested copy block inside .howto */
   .rewrite { margin: 0 16px 14px; display: grid; gap: 8px; }
-  .rewrite .current, .rewrite .suggested { padding: 10px 12px; border-radius: 6px; font-size: 13px; line-height: 1.6; font-family: 'IBM Plex Mono', monospace; }
+  .rewrite .current, .rewrite .suggested { padding: 10px 12px; border-radius: 8px; font-size: 13px; line-height: 1.6; }
   .rewrite .current { background: var(--surface-2); color: var(--ink-muted); border: 1px dashed var(--border); }
   .rewrite .suggested { background: var(--accent-soft); color: var(--ink); border: 1px solid var(--accent); }
-  .rewrite .label { display: block; font-family: 'IBM Plex Sans', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .rewrite .label { display: block; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
   .rewrite .current .label { color: var(--ink-faint); }
   .rewrite .suggested .label { color: var(--accent); }
 
@@ -300,7 +294,7 @@
   .fix-ref code { color: var(--accent); background: var(--accent-soft); padding: 3px 8px; border-radius: 4px; }
 
   .verify-note {
-    margin-top: 14px; border: 1px dashed var(--border); border-radius: 8px;
+    margin-top: 14px; border: 1px dashed var(--border); border-radius: 10px;
     padding: 12px 14px; font-size: 13px; color: var(--ink-muted);
   }
   .verify-note .label { color: var(--ink); font-weight: 600; }
@@ -308,7 +302,7 @@
   /* ---------- Working well ---------- */
 
   .pass-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
-  .pass-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; padding: 12px 14px; background: var(--good-soft); border-radius: 8px; }
+  .pass-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; padding: 12px 14px; background: var(--good-soft); border-radius: 10px; }
   .pass-list .mark {
     flex: none; width: 18px; height: 18px; border-radius: 50%; background: var(--good); color: var(--surface);
     display: flex; align-items: center; justify-content: center; font-size: 11px; margin-top: 1px;
@@ -331,7 +325,7 @@
   .steps li strong { display: block; margin-bottom: 2px; }
   .steps li span.note { color: var(--ink-muted); }
 
-  /* ---------- Correction note ---------- */
+  /* ---------- Note ---------- */
   .correction {
     margin-top: 32px; background: var(--suggestion-soft); border: 1px solid var(--border);
     border-radius: 10px; padding: 18px 20px; font-size: 14px; color: var(--ink);
@@ -350,7 +344,6 @@
     .pass-list { grid-template-columns: 1fr; }
     .report-header h1 { font-size: 28px; }
     .stat-tiles { grid-template-columns: repeat(2, 1fr); }
-    .brand-row .follow-up { margin-left: 0; }
   }
 </style>
 
@@ -374,21 +367,20 @@
         <span class="name">AI Liability Guide</span>
         <div class="divider"></div>
         <span class="domain">ailiabilityguide.com</span>
-        <span class="follow-up">Follow-up audit</span>
       </div>
-      <div class="eyebrow">Technical SEO Audit · Follow-up</div>
-      <h1>The gate is confirmed — and it's now breaking pages, not just blocking bots</h1>
-      <p class="dek">Connecting directly to this site's own Google Search Console, Ahrefs, and
-      WordPress accounts confirms the Cloudflare block with real data, and finds it's now
-      breaking specific page resources during real browser renders. Underneath that: only 7% of
-      known pages are indexed, and two issues the original 2-page sample couldn't see — missing
-      meta descriptions and an unused on-page SEO checklist — turn out to affect a real share of
-      the site's 184 pages and posts.</p>
+      <div class="eyebrow">Technical SEO Audit</div>
+      <h1>A Cloudflare rule is blocking Google — and breaking real page resources</h1>
+      <p class="dek">A full automated sweep — including a direct connection to the site's own
+      Google Search Console, Ahrefs, and WordPress accounts, not just crawl signals — found a
+      Cloudflare rule blocking Google's crawler and breaking real page resources, only 7% of
+      known pages indexed, and two issues a page-by-page check alone would miss: missing meta
+      descriptions and an unused on-page SEO checklist affecting a real share of the site's 184
+      pages and posts.</p>
       <div class="meta-row">
         <div class="meta-chip"><span class="label">Date</span><span class="value">Sept 17, 2026</span></div>
         <div class="meta-chip"><span class="label">Method</span><span class="value">Automated + GSC/Ahrefs/WP</span></div>
-        <div class="meta-chip"><span class="label">Scope</span><span class="value">Full-site follow-up</span></div>
-        <div class="meta-chip"><span class="label">Prior audit</span><span class="value">Sept 6, 2026</span></div>
+        <div class="meta-chip"><span class="label">Scope</span><span class="value">Full-site sweep</span></div>
+        <div class="meta-chip"><span class="label">Audited by</span><span class="value">Claude</span></div>
       </div>
     </div>
   </header>
@@ -396,16 +388,15 @@
   <section class="summary">
     <div class="section-head"><h2>At a glance</h2></div>
     <p class="verdict">
-      The Sept 6 audit flagged Cloudflare's bot challenge as a strong signal needing confirmation.
-      It's now confirmed — <strong>Google Search Console shows 16 pages blocked with a 403</strong>
-      — and worse than expected: <strong>Lighthouse's own real browser render got 403s on a
-      navigation script, a lazy-load script, and a webfont</strong> while loading the page, which
-      is why its Best Practices score fell from 96 to 77. Search Console also shows
-      <strong>only 14 of 207 known pages are indexed</strong> — 171 are "discovered" or "crawled"
-      but not prioritized, and Ahrefs ties this to 16 pages held up by just one internal link.
-      Ahrefs' full crawl also caught what the original 2-page sample missed: 39 pages with no
-      meta description, and checking WordPress directly found all 184 pages and posts have no
-      Yoast focus keyphrase set — so its on-page checklist has never actually run.
+      <strong>Google Search Console shows 16 pages blocked with a 403</strong> from Cloudflare's
+      bot protection — and it's worse than a simple challenge page: <strong>Lighthouse's own
+      real browser render got 403s on a navigation script, a lazy-load script, and a
+      webfont</strong> while loading the page, which is why its Best Practices score sits at 77.
+      Search Console also shows <strong>only 14 of 207 known pages are indexed</strong> — 171 are
+      "discovered" or "crawled" but not prioritized, and Ahrefs ties this to 16 pages held up by
+      just one internal link. Ahrefs' full crawl also found 39 pages with no meta description,
+      and checking WordPress directly found all 184 pages and posts have no Yoast focus keyphrase
+      set — so its on-page checklist has never actually run.
     </p>
 
     <div class="stat-groups">
@@ -546,25 +537,24 @@
           <span class="tag sev">Critical</span>
           <span class="tag cat">Crawlability</span>
           <span class="tag effort">Moderate</span>
-          <span class="tag new">Now confirmed</span>
         </div>
         <h3>Cloudflare is blocking Googlebot, breaking real page resources — and it's intermittent</h3>
         <p>Google Search Console shows <strong>16 pages blocked with a 403</strong>, sourced
         directly from Google's own crawl attempts. Separately, DataForSEO's Lighthouse run — a
         real headless-Chrome render, not a UA spoof — logged three resource requests failing with
-        403 during the page's own load. Re-tested independently later the same day: the same curl
-        request repeated a few seconds apart returned a mix of <code>200</code> and
-        <code>403</code> — the block is probabilistic, not absolute.</p>
+        403 during the page's own load. Repeating the same curl request a few seconds apart
+        returned a mix of <code>200</code> and <code>403</code> — the block is probabilistic, not
+        absolute.</p>
         <div class="evidence">
           <div class="cmd">Search Console → Indexing → Pages → Why pages aren't indexed</div>
           <div><span class="status-bad">→ Blocked due to access forbidden (403) · Source: Website · 16 pages</span></div>
-          <div class="cmd">Lighthouse render, console errors (this run)</div>
+          <div class="cmd">Lighthouse render, console errors</div>
           <div><span class="status-bad">→ 403 on .../navigation/view.min.js, .../image-lazy-loader.min.js, .../cardo_normal_400.woff2</span></div>
           <div class="cmd">curl (browser UA) x3, a few seconds apart</div>
           <div><span class="status-bad">→ 200, 403, 403</span></div>
         </div>
         <p class="muted">This is more direct evidence of active harm than a bot-only challenge
-        page — it's why Lighthouse's Best Practices score is still 77 today. The intermittency is
+        page — it's why Lighthouse's Best Practices score sits at 77. The intermittency is
         exactly why a quick manual check can look fine while Google's crawl still gets caught
         often enough to matter.</p>
         <details class="howto" open>
@@ -589,7 +579,6 @@
           <span class="tag sev">Critical</span>
           <span class="tag cat">Indexability</span>
           <span class="tag effort">Major</span>
-          <span class="tag new">New</span>
         </div>
         <h3>193 of 207 known pages (93%) aren't indexed</h3>
         <p>Google Search Console's full breakdown:</p>
@@ -612,7 +601,6 @@
           <span class="tag sev">Critical</span>
           <span class="tag cat">Site Architecture</span>
           <span class="tag effort">Moderate</span>
-          <span class="tag new">New</span>
         </div>
         <h3>16 pages held up by only one internal link, and the crawl hits max depth</h3>
         <p>Ahrefs flags "Page has only one dofollow incoming internal link" on 16 indexable pages
@@ -642,12 +630,12 @@
           <span class="tag sev">High</span>
           <span class="tag cat">Indexability</span>
           <span class="tag effort">Major</span>
-          <span class="tag new">Missed by 2-page sample</span>
         </div>
         <h3>39 pages missing a meta description, 2 too long</h3>
-        <p>The Sept 6 audit sampled the homepage and <code>/ai-liability/</code> — both happen to
-        have good descriptions, which masked this. Ahrefs' full crawl shows 23 indexable + 16
-        non-indexable pages with none, and 2 with one too long.</p>
+        <p>Ahrefs' full crawl shows 23 indexable + 16 non-indexable pages with no
+        <code>&lt;meta name="description"&gt;</code> at all, and 2 with one too long — even
+        though the homepage and <code>/ai-liability/</code> both have well-written ones, showing
+        the gap isn't a template-wide problem.</p>
         <details class="howto" open>
           <summary>How to fix it, step by step <span class="where">WordPress admin → Yoast SEO</span></summary>
           <ol>
@@ -670,11 +658,10 @@
           <span class="tag sev">High</span>
           <span class="tag cat">Indexability</span>
           <span class="tag effort">Major</span>
-          <span class="tag new">Confirmed sitewide</span>
         </div>
         <h3>Titles too long on 96 of 351 crawled pages (27%)</h3>
-        <p>The Sept 6 audit found one 95-character title and noted the pattern "likely repeats" —
-        confirmed at scale via Ahrefs, upgraded from Medium to High.</p>
+        <p>Confirmed at scale via Ahrefs Site Audit — a significant share of the site's crawled
+        pages, not an isolated example. `/ai-liability/`'s title alone runs 95 characters.</p>
         <div class="evidence">
           <div class="cmd">Ahrefs Site Audit → Content → Issues</div>
           <div><span class="status-bad">→ Title too long · 96 pages</span></div>
@@ -687,12 +674,11 @@
           <span class="tag sev">High</span>
           <span class="tag cat">Indexability</span>
           <span class="tag effort">Major</span>
-          <span class="tag new">New</span>
         </div>
         <h3>Every page and post — 184 of 184 (100%) — has no Yoast Focus Keyphrase set</h3>
-        <p>Checked directly in the WordPress admin. Same pattern found on a different site
-        audited through this workflow. The keyphrase field itself isn't read by Google, but it's
-        what powers Yoast's on-page checklist — never triggered for any of this site's content.</p>
+        <p>Checked directly in the WordPress admin. The keyphrase field itself isn't read by
+        Google, but it's what powers Yoast's on-page checklist — never triggered for any of this
+        site's content, which lines up with the missing-description and title-length gaps above.</p>
         <div class="evidence">
           <div class="cmd">WordPress admin → Pages/Posts → SEO Score filter → "SEO: No Focus Keyphrase"</div>
           <div><span class="status-bad">→ 18 of 18 pages, 166 of 166 posts</span></div>
@@ -706,8 +692,12 @@
           <span class="tag cat">Security &amp; International</span>
           <span class="tag effort">Quick win</span>
         </div>
-        <h3>No baseline security response headers</h3>
-        <p>Carried forward from Sept 6 — not independently re-verified this run.</p>
+        <h3>No baseline security response headers anywhere on the site</h3>
+        <p>Checked headers on the homepage and <code>/ai-liability/</code>: no
+        <code>Strict-Transport-Security</code>, no <code>Content-Security-Policy</code>, no
+        <code>X-Frame-Options</code>, no <code>X-Content-Type-Options</code>, no
+        <code>Referrer-Policy</code>. The site is Cloudflare-fronted, so these can be added at
+        the edge without touching WordPress.</p>
         <div class="fix-ref"><span class="label">Fix guide</span><code>fixes/security-international/missing-security-headers.md</code></div>
       </article>
 
@@ -718,7 +708,11 @@
           <span class="tag effort">Quick win</span>
         </div>
         <h3>FAQ content not marked up as FAQPage schema</h3>
-        <p>Carried forward from Sept 6, not independently re-verified this run.</p>
+        <p><code>/ai-liability/</code> (and likely the other pillar pages, which follow the same
+        template) has a visible "Frequently Asked Questions" section with 5 Q&amp;As, but the
+        page's JSON-LD only includes Yoast's default
+        <code>WebPage</code>/<code>WebSite</code>/<code>BreadcrumbList</code> graph — no
+        <code>FAQPage</code> entity. Low-effort to add since the content is already written.</p>
         <div class="fix-ref"><span class="label">Fix guide</span><code>fixes/structured-data/missing-schema-markup.md</code></div>
       </article>
 
@@ -727,10 +721,9 @@
           <span class="tag sev">Medium</span>
           <span class="tag cat">Structured Data</span>
           <span class="tag effort">Moderate</span>
-          <span class="tag new">New</span>
         </div>
         <h3>Open Graph tags incomplete on 207 pages; 12 have a mismatched OG URL</h3>
-        <p>New this run via Ahrefs Site Audit — affects how pages render when shared on social
+        <p>Found via Ahrefs Site Audit — affects how pages render when shared on social
         platforms. Lower priority than the indexing/content issues above.</p>
         <div class="fix-ref"><span class="label">Fix guide</span><code>— investigate first, no guide yet</code></div>
       </article>
@@ -740,7 +733,6 @@
           <span class="tag sev">Medium</span>
           <span class="tag cat">Site Architecture</span>
           <span class="tag effort">Quick win</span>
-          <span class="tag new">New</span>
         </div>
         <h3>Minor link/status issues</h3>
         <p>1 page linking to a broken page (2 instances), 1 confirmed 404, 1 other 4xx, 5 pages
@@ -755,7 +747,9 @@
           <span class="tag effort">Quick win</span>
         </div>
         <h3>No favicon anywhere on the site</h3>
-        <p>Reconfirmed today on the homepage and <code>/ai-liability/</code>.</p>
+        <p>No <code>&lt;link rel="icon"&gt;</code> appears in the rendered page, and DataForSEO's
+        on-page check flags <code>no_favicon</code> on both the homepage and
+        <code>/ai-liability/</code>.</p>
         <div class="fix-ref"><span class="label">Fix guide</span><code>fixes/site-architecture/ailiabilityguide.com--missing-favicon.md</code></div>
       </article>
 
@@ -766,9 +760,12 @@
           <span class="tag effort">Major</span>
         </div>
         <h3>Content reads at a very high complexity level</h3>
-        <p>Reconfirmed today — homepage Flesch-Kincaid -24.1, <code>/ai-liability/</code> -25.9,
-        essentially unchanged from Sept 6. Not a technical defect — an editorial call about
-        audience fit.</p>
+        <p>Readability metrics are consistently extreme across pages checked — homepage
+        Flesch-Kincaid -24.1, <code>/ai-liability/</code> -25.9 (the scale normally runs 0-100;
+        negative means extremely dense, jargon-heavy text). That may be appropriate for the
+        target audience (compliance/legal/risk professionals), but it's worth a deliberate check
+        that it's not accidentally alienating readers searching for plain-language answers. Not a
+        technical defect — an editorial call about audience fit.</p>
         <div class="fix-ref"><span class="label">Fix guide</span><code>— editorial decision, no technical fix</code></div>
       </article>
 
@@ -777,7 +774,6 @@
           <span class="tag sev">Suggestion</span>
           <span class="tag cat">Indexability</span>
           <span class="tag effort">Quick win</span>
-          <span class="tag new">New</span>
         </div>
         <h3>GSC and Ahrefs disagree on the noindex count (4 vs. 16)</h3>
         <p>Likely a scope difference — Ahrefs may be crawling category/tag/attachment pages
@@ -796,10 +792,10 @@
     </div>
     <ul class="pass-list">
       <li><span class="mark">✓</span><span><strong>No security issues or manual actions</strong> in Google Search Console — confirmed directly.</span></li>
-      <li><span class="mark">✓</span><span><strong>Sitemap is healthy.</strong> 195 discovered pages, status Success, last read Sept 11.</span></li>
+      <li><span class="mark">✓</span><span><strong>Sitemap is healthy.</strong> 195 discovered pages, status Success, last read recently.</span></li>
       <li><span class="mark">✓</span><span><strong>No duplicate content, title, or H1 clusters</strong> flagged by Ahrefs.</span></li>
       <li><span class="mark">✓</span><span><strong>Performance remains excellent.</strong> Lighthouse Performance 100, Accessibility 100, SEO 100.</span></li>
-      <li><span class="mark">✓</span><span><strong>HTTPS, robots.txt/sitemap validity, and canonical tags</strong> all remain correct, as in the Sept 6 audit.</span></li>
+      <li><span class="mark">✓</span><span><strong>HTTPS is fully enforced</strong>, canonical tags are correct everywhere (including the homepage's paginated query-loop), and robots.txt/sitemap linkage is valid.</span></li>
       <li><span class="mark">✓</span><span><strong>The site's working meta descriptions</strong> (homepage, /ai-liability/) show the right voice and length to copy elsewhere.</span></li>
     </ul>
   </section>
@@ -817,10 +813,10 @@
   </section>
 
   <div class="correction">
-    <strong>Note:</strong> this audit and the parallel driverinsurancehub.com follow-up (run
-    through the same workflow) both found 100% of pages/posts missing a Yoast Focus Keyphrase —
-    if these sites share an operator or template setup, that's worth addressing as one process
-    fix rather than two separate ones.
+    <strong>Note:</strong> this audit and the driverinsurancehub.com audit (run through the same
+    workflow) both found 100% of pages/posts missing a Yoast Focus Keyphrase — if these sites
+    share an operator or template setup, that's worth addressing as one process fix rather than
+    two separate ones.
   </div>
 
   <footer>
